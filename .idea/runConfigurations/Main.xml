@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="ba.unsa.etf.rpr.Main" />
-    <module name="example1" />
+    <module name="IdeaProjects" />
     <option name="VM_PARAMETERS" value="--module-path /usr/local/share/openjfx/lib --add-modules javafx.controls,javafx.fxml" />
     <RunnerSettings RunnerId="Run" />
     <ConfigurationWrapper RunnerId="Run" />
