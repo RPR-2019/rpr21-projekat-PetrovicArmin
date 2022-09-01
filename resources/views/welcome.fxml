@@ -1,15 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Welcome">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/welcome.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Welcome">
+   <left>
+      <VBox id="sidebar" alignment="TOP_CENTER" prefHeight="377.0" prefWidth="138.0" spacing="10.0" stylesheets="@../css/welcome.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnLogin" onAction="#showLogin" prefHeight="24.0" prefWidth="113.0" text="%app.welcome.login" />
+            <Button fx:id="btnSignup" onAction="#showSignup" prefHeight="24.0" prefWidth="112.0" text="%app.welcome.signup" />
+            <MenuButton fx:id="languageBtn" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="112.0" styleClass="button" stylesheets="@../css/welcome.css" text="%app.welcome.language" textAlignment="CENTER">
+              <items>
+                <MenuItem fx:id="bosnianBtn" onAction="#setBosnianLanguage" styleClass="button" text="%app.welcome.bosnian">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
+                <MenuItem fx:id="englishBtn" onAction="#setEnglishLanguage" styleClass="button" text="%app.welcome.english">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
+              </items>
+            </MenuButton>
+            <Button fx:id="btnAbout" onAction="#showAboutPage" prefHeight="24.0" prefWidth="114.0" text="%app.welcome.about" />
+            <Separator VBox.vgrow="ALWAYS" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <bottom>
+      <HBox id="footer" alignment="CENTER" prefHeight="23.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label id="footer" contentDisplay="CENTER" stylesheets="@../css/welcome.css" text="%app.welcome.footer" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </bottom>
    <center>
-      <Label text="Moja pozdravna poruka" BorderPane.alignment="CENTER" />
+      <VBox alignment="TOP_CENTER" spacing="20.0">
+         <children>
+            <ImageView fitHeight="182.0" fitWidth="334.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image></ImageView>
+            <Label text="%app.welcome.greeting" wrapText="true">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label text="%app.welcome.message1" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" VBox.vgrow="NEVER">
+               <children>
+                  <Label nodeOrientation="LEFT_TO_RIGHT" text="%app.welcome.message2" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label text="%app.welcome.message3" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
    </center>
-   <padding>
-      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-   </padding>
 </BorderPane>
