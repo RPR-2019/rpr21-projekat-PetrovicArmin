@@ -1,15 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Welcome">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Welcome" stylesheets="@../css/welcome.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox id="sidebar" alignment="TOP_CENTER" prefHeight="377.0" prefWidth="120.0" spacing="10.0" stylesheets="@../css/welcome.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="99.0" text="Log in" />
+            <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Sign up" />
+            <MenuButton accessibleRole="BUTTON" mnemonicParsing="false" styleClass="button" stylesheets="@../css/welcome.css" text="Language">
+              <items>
+                <MenuItem mnemonicParsing="false" styleClass="button" text="Bosnian" />
+                <MenuItem mnemonicParsing="false" styleClass="button" text="English" />
+              </items>
+            </MenuButton>
+            <Button fx:id="btnAbout" onAction="#showAboutPage" mnemonicParsing="false" prefHeight="24.0" prefWidth="101.0" text="About" />
+            <Separator VBox.vgrow="ALWAYS" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <bottom>
+      <HBox id="footer" alignment="CENTER" prefHeight="23.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label id="footer" contentDisplay="CENTER" stylesheets="@../css/welcome.css" text="Faculty of Electrical Engineering. Developed and maintained by: Petrović Armin" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </bottom>
    <center>
-      <Label text="Moja pozdravna poruka" BorderPane.alignment="CENTER" />
+      <VBox alignment="TOP_CENTER" spacing="20.0">
+         <children>
+            <ImageView fitHeight="182.0" fitWidth="334.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image></ImageView>
+            <Label text="Hello there! Greetings from Bug tracker welcome page!" wrapText="true">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label text="- In order to try out all of the application features, you need to sign up to get your account. If you already have account, go and Log in. " wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" VBox.vgrow="NEVER">
+               <children>
+                  <Label nodeOrientation="LEFT_TO_RIGHT" text="- You are free to use either English, or Bosnian language. " wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label text="- On About page you can examine basic application workflow, as well as addittional info about application..." wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
    </center>
-   <padding>
-      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-   </padding>
 </BorderPane>
