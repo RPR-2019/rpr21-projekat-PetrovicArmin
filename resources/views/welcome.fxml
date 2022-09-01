@@ -20,13 +20,13 @@
          <children>
             <Button fx:id="btnLogin" onAction="#showLogin" prefHeight="24.0" prefWidth="113.0" text="%app.welcome.login" />
             <Button fx:id="btnSignup" onAction="#showSignup" prefHeight="24.0" prefWidth="112.0" text="%app.welcome.signup" />
-            <MenuButton accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="112.0" styleClass="button" stylesheets="@../css/welcome.css" text="%app.welcome.language" textAlignment="CENTER">
+            <MenuButton fx:id="languageBtn" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="112.0" styleClass="button" stylesheets="@../css/welcome.css" text="%app.welcome.language" textAlignment="CENTER">
               <items>
-                <MenuItem onAction="#setBosnianLanguage" styleClass="button" text="%app.welcome.bosnian">
+                <MenuItem fx:id="bosnianBtn" onAction="#setBosnianLanguage" styleClass="button" text="%app.welcome.bosnian">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                      </accelerator></MenuItem>
-                <MenuItem onAction="#setEnglishLanguage" styleClass="button" text="%app.welcome.english">
+                <MenuItem fx:id="englishBtn" onAction="#setEnglishLanguage" styleClass="button" text="%app.welcome.english">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                      </accelerator></MenuItem>
