@@ -18,7 +18,10 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root;
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/welcome.fxml")));
-        stage.setScene(new Scene(root));
+        stage.setScene(new Scene(root, 800, 600));
+        stage.setResizable(false);
+        stage.setTitle("Bug tracker app");
+
         stage.toFront();
         stage.show();
     }
