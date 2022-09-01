@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.About">
+   <top>
+      <Label text="Basic application usage" wrapText="true" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+         <children>
+            <Label text="- In order to use application, you firstly need to make your profile. There you enter your basic credentials." wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="- After that, you will get to your dashboard page. On it, you can see all bugs that exist in your company / corporation. In bug details, you can check additional information about bugs." wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="- If you know how to solve bug, you can solve it by clicking on appropriate button. You will be redirected to create solution in new window, for that bug of course. Keep in mind that you can only solve bugs that exist in your department." wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="- If you yourself have some bugs trying to solve, you can post bugs. When clicking on that option, you'll go to new window, in which you will create your bug. Bug is automatically posted on dashboard of other users, and your dashboard." wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="- If you are more of a configuration guy, you can import or export bugs with appropriate .bug formatted file. Also, you will be able to upload or download bugs directly into your account from JSON API server." wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="59.0" prefWidth="580.0" text="- Finally, you will be able to review application statistics. Some information that you can see there are: percentage of solved bugs per departments, solved bugs totally, total bugs created, and loads of more information." wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="- All of statistics information will be printable by creating Jaspersoft report." wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

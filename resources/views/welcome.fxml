@@ -13,12 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Welcome" stylesheets="@../css/welcome.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/welcome.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Welcome">
    <left>
       <VBox id="sidebar" alignment="TOP_CENTER" prefHeight="377.0" prefWidth="120.0" spacing="10.0" stylesheets="@../css/welcome.css" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="99.0" text="Log in" />
-            <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Sign up" />
+            <Button fx:id="btnLogin" onAction="#showLogin" mnemonicParsing="false" prefHeight="24.0" prefWidth="99.0" text="Log in" />
+            <Button fx:id="btnSignup" onAction="#showSignup" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Sign up" />
             <MenuButton accessibleRole="BUTTON" mnemonicParsing="false" styleClass="button" stylesheets="@../css/welcome.css" text="Language">
               <items>
                 <MenuItem mnemonicParsing="false" styleClass="button" text="Bosnian" />
