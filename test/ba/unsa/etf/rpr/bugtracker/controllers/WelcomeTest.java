@@ -1,9 +1,11 @@
 package ba.unsa.etf.rpr.bugtracker.controllers;
 import ba.unsa.etf.rpr.bugtracker.common.Main;
+import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -15,18 +17,23 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
-class WelcomeTest {
+class WelcomeTest  implements Showable{
     private Welcome controller;
     private Stage stage;
 
     @Start
     public void start (Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(Main.class.getResource("/views/welcome.fxml")));
-        Parent mainNode = loader.load();
-        stage.setScene(new Scene(mainNode));
+        stage.setResizable(false);
         this.stage = stage;
-        this.controller = loader.getController();
-        stage.show();
-        stage.toFront();
+        controller = (Welcome) this.showStage(stage, "/views/welcome.fxml", "app.title", 800, 450);
+    }
+
+    @Test
+    public void testBosnianLanguage(FxRobot robot) {
+        assertTrue(true);
+    }
+
+    @Test void testEnglishLanguage(FxRobot robot) {
+        assertTrue(true);
     }
 }

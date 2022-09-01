@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.bugtracker.common.other;
 
+import ba.unsa.etf.rpr.bugtracker.controllers.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.event.EventTarget;
 import javafx.fxml.FXMLLoader;
@@ -16,19 +17,24 @@ import java.util.ResourceBundle;
 
 public interface Showable {
     //conditions:
-    //      event must have been initiated by button control!
     //      in production mode add controller parameter to send to this function!
-    default void showStage(Stage stage, String resourcePath, String titleKey, int width, int height) {
+    default AbstractController showStage(Stage stage, String resourcePath, String titleKey, int width, int height) {
+        AbstractController controller = null;
+
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("ba.unsa.etf.rpr.bugtracker.common.languageProperties", Locale.getDefault());
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath), bundle);
             Parent root = loader.load();
             stage.setTitle(bundle.getString(titleKey));
             stage.setScene(new Scene(root, width, height));
+            controller = loader.getController();
             stage.toFront();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
+
+        return controller;
     }
 }
