@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -15,17 +16,23 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/welcome.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Welcome">
    <left>
-      <VBox id="sidebar" alignment="TOP_CENTER" prefHeight="377.0" prefWidth="120.0" spacing="10.0" stylesheets="@../css/welcome.css" BorderPane.alignment="CENTER">
+      <VBox id="sidebar" alignment="TOP_CENTER" prefHeight="377.0" prefWidth="138.0" spacing="10.0" stylesheets="@../css/welcome.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#showLogin" prefHeight="24.0" prefWidth="99.0" text="Log in" />
-            <Button fx:id="btnSignup" mnemonicParsing="false" onAction="#showSignup" prefHeight="24.0" prefWidth="100.0" text="Sign up" />
-            <MenuButton accessibleRole="BUTTON" mnemonicParsing="false" styleClass="button" stylesheets="@../css/welcome.css" text="Language">
+            <Button fx:id="btnLogin" onAction="#showLogin" prefHeight="24.0" prefWidth="113.0" text="%app.welcome.login" />
+            <Button fx:id="btnSignup" onAction="#showSignup" prefHeight="24.0" prefWidth="112.0" text="%app.welcome.signup" />
+            <MenuButton accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="112.0" styleClass="button" stylesheets="@../css/welcome.css" text="%app.welcome.language" textAlignment="CENTER">
               <items>
-                <MenuItem mnemonicParsing="false" styleClass="button" text="Bosnian" onAction="#setBosnianLanguage"/>
-                <MenuItem mnemonicParsing="false" styleClass="button" text="English" onAction="#setEnglishLanguage"/>
+                <MenuItem onAction="#setBosnianLanguage" styleClass="button" text="%app.welcome.bosnian">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
+                <MenuItem onAction="#setEnglishLanguage" styleClass="button" text="%app.welcome.english">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
               </items>
             </MenuButton>
-            <Button fx:id="btnAbout" mnemonicParsing="false" onAction="#showAboutPage" prefHeight="24.0" prefWidth="101.0" text="About" />
+            <Button fx:id="btnAbout" onAction="#showAboutPage" prefHeight="24.0" prefWidth="114.0" text="%app.welcome.about" />
             <Separator VBox.vgrow="ALWAYS" />
          </children>
          <opaqueInsets>
@@ -39,7 +46,7 @@
    <bottom>
       <HBox id="footer" alignment="CENTER" prefHeight="23.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label id="footer" contentDisplay="CENTER" stylesheets="@../css/welcome.css" text="Faculty of Electrical Engineering. Developed and maintained by: Petrović Armin" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+            <Label id="footer" contentDisplay="CENTER" stylesheets="@../css/welcome.css" text="%app.welcome.footer" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </bottom>

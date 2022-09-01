@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root;
-        Locale locale = new Locale("bs", "BA");
+        Locale locale = new Locale("en", "US");
         Locale.setDefault(locale);
         ResourceBundle bundle = ResourceBundle.getBundle("ba.unsa.etf.rpr.bugtracker.common.languageProperties", locale);
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/welcome.fxml")), bundle);

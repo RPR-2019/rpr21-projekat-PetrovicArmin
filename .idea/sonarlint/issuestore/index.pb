@@ -8,7 +8,5 @@ P
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
-l
-<src/ba/unsa/etf/rpr/bugtracker/common/database/Database.java,5/e/5e0a998ee7755e2c363802c49afc5f0ce2155857
 q
 Atest/ba/unsa/etf/rpr/bugtracker/common/database/DatabaseTest.java,6/f/6fc9d9414f5d5897fabc7503d85595235e2ad9bd

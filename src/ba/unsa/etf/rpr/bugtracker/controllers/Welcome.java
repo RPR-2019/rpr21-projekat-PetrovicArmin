@@ -38,7 +38,7 @@ public class Welcome implements Initializable, Showable {
     public void showAboutPage(ActionEvent actionEvent) throws IOException {
         Stage aboutStage = new Stage();
         aboutStage.setResizable(false);
-        showStage(aboutStage, "/views/about.fxml", "app.about.title", 800, 450);
+        showStage(aboutStage, "/views/about.fxml", "app.about.title", 800, 400);
     }
 
     public void showLogin(ActionEvent actionEvent) {
