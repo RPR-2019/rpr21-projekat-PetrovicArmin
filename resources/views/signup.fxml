@@ -10,9 +10,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Signup" alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="608.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18">
+<GridPane alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Signup">
   <columnConstraints>
     <ColumnConstraints />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -34,7 +35,8 @@
             <Insets right="10.0" />
          </GridPane.margin>
          <buttons>
-            <Button fx:id="btnOk" defaultButton="true" mnemonicParsing="false" text="OK" />
+            <Button fx:id="btnOk" defaultButton="true" disable="true" mnemonicParsing="false" text="OK" />
+            <Button mnemonicParsing="false" onAction="#startCheckEmail" text="%app.signup.verify" />
             <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" text="%app.signup.cancel" />
          </buttons>
       </ButtonBar>
@@ -64,11 +66,19 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </PasswordField>
-      <TextField fx:id="fldEmail" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+      <HBox GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets right="20.0" />
          </GridPane.margin>
-      </TextField>
+         <children>
+            <TextField fx:id="fldEmail" />
+            <Button fx:id="btnStatus" alignment="CENTER" mnemonicParsing="false" styleClass="statusBtn" stylesheets="@../css/signup.css">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
       <ChoiceBox fx:id="fldChoiceBox" maxWidth="1.7976931348623157E308" prefHeight="24.0" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets right="10.0" />
