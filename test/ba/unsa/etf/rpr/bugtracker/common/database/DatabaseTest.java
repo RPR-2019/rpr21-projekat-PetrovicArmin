@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.bugtracker.common.database;
 
+import ba.unsa.etf.rpr.bugtracker.common.enums.Department;
+import ba.unsa.etf.rpr.bugtracker.models.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,5 +52,27 @@ class DatabaseTest {
     void removeInstance() throws SQLException {
         Database.removeInstance();
         assertTrue(instance.getConn().isClosed());
+    }
+
+    @Test
+    void getUserByUsername() {
+        User mockUser = new User(1, "a", "b", "c", "d", "e", Department.DATABASE);
+        instance.storeUser(mockUser);
+        assertNotNull(instance.getUserByUsername("a"));
+    }
+
+    @Test
+    void getUserByEmail() {
+        User mockUser = new User(1, "a", "b", "c", "d", "e", Department.DATABASE);
+        instance.storeUser(mockUser);
+        assertNotNull(instance.getUserByEmail("d"));
+    }
+
+    @Test
+    void addUser() {
+        User mockUser = new User(1, "a", "b", "c", "d", "e", Department.DATABASE);
+        instance.storeUser(mockUser);
+
+        assertEquals(instance.getUserByUsername("a").toString(), mockUser.getLastname() + " " + mockUser.getFirstname() + " : " + mockUser.getUsername());
     }
 }
