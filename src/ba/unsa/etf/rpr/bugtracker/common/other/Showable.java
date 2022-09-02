@@ -18,16 +18,18 @@ import java.util.ResourceBundle;
 public interface Showable {
     //conditions:
     //      in production mode add controller parameter to send to this function!
-    default AbstractController showStage(Stage stage, String resourcePath, String titleKey, int width, int height) {
-        AbstractController controller = null;
+    default AbstractController showStage(Stage stage, String resourcePath, String titleKey, int width, int height, AbstractController... controller) {
+        AbstractController returningController;
 
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("ba.unsa.etf.rpr.bugtracker.common.languageProperties", Locale.getDefault());
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath), bundle);
+            if (controller.length != 0)
+                loader.setController(controller[0]);
             Parent root = loader.load();
             stage.setTitle(bundle.getString(titleKey));
             stage.setScene(new Scene(root, width, height));
-            controller = loader.getController();
+            returningController = loader.getController();
             stage.toFront();
             stage.show();
         } catch (IOException e) {
@@ -35,6 +37,6 @@ public interface Showable {
             return null;
         }
 
-        return controller;
+        return returningController;
     }
 }
