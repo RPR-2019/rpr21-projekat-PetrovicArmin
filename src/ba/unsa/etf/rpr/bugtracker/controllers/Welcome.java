@@ -48,7 +48,7 @@ public class Welcome extends AbstractController implements Initializable, Showab
         //TODO - go from this to signup window
         Stage signupStage = new Stage();
         signupStage.setResizable(true);
-        this.showStage(signupStage, "/views/signup.fxml", "app.signup.title", 600, 400);
+        this.showStage(signupStage, "/views/signup.fxml", "app.signup.title", 800, 300);
     }
 
     public void setBosnianLanguage(ActionEvent actionEvent) {

@@ -1,27 +1,25 @@
 package ba.unsa.etf.rpr.bugtracker.controllers;
 
 import ba.unsa.etf.rpr.bugtracker.common.database.Database;
+import ba.unsa.etf.rpr.bugtracker.common.enums.Department;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
+import com.verifalia.api.VerifaliaRestClient;
 import com.verifalia.api.emailvalidations.WaitingStrategy;
 import com.verifalia.api.emailvalidations.models.Validation;
-import com.verifalia.api.emailvalidations.models.ValidationEntry;
 import com.verifalia.api.exceptions.VerifaliaException;
 import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.verifalia.api.VerifaliaRestClient;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 
 public class Signup extends AbstractController implements Showable, Initializable {
@@ -32,7 +30,7 @@ public class Signup extends AbstractController implements Showable, Initializabl
     public TextField fldUsername;
     public PasswordField fldPassword;
     public TextField fldEmail;
-    public ChoiceBox choiceDepartment;
+    public ChoiceBox<Department> choiceDepartment;
     public Button btnStatus;
     private Database database;
     private VerifaliaRestClient verifalia = new VerifaliaRestClient("b15ba79ae19e4137af18baf6005ded7c", "g*FM#$scz92*3zC");
@@ -49,7 +47,7 @@ public class Signup extends AbstractController implements Showable, Initializabl
     // - needs to be unique, when comparing to ones that are already in database
 
 
-    private boolean hasAtLeastNCharacters(String text, int number) {
+    private static boolean hasAtLeastNCharacters(String text, int number) {
         return text.trim().length() >= number;
     }
 
@@ -74,20 +72,27 @@ public class Signup extends AbstractController implements Showable, Initializabl
 
     private void checkEmailVerifalia(String email) {
         Validation validation = null;
+        String entryString = "Non deliverable";
 
-        try {
-            validation = verifalia
-                    .getEmailValidations()
-                    .submit(email, new WaitingStrategy(true));
-        } catch (VerifaliaException e) {
-            e.printStackTrace();
+        //if basic email structure is not fulfilled, than look no longer
+        //for verifalia validation
+        if (isValidEmail(email)) {
+            try {
+                validation = verifalia
+                        .getEmailValidations()
+                        .submit(email, new WaitingStrategy(true));
+            } catch (VerifaliaException e) {
+                e.printStackTrace();
+            }
+
+            entryString = validation.getEntries().get(0).getClassification().toString();
         }
 
-        String entryString = validation.getEntries().get(0).getClassification().toString();
+        String finalEntryString = entryString;
 
         Platform.runLater(() -> {
             String imagePath = "";
-            if (entryString.equals("Deliverable")) {
+            if (finalEntryString.equals("Deliverable")) {
                 imagePath = "/images/checkmark.png";
                 btnOk.setDisable(false);
             }
@@ -105,7 +110,8 @@ public class Signup extends AbstractController implements Showable, Initializabl
         });
 
         try {
-            verifalia.getEmailValidations().delete(validation.getOverview().getId());
+            if (validation != null)
+                verifalia.getEmailValidations().delete(validation.getOverview().getId());
         } catch (VerifaliaException e) {
             e.printStackTrace();
         }
@@ -114,7 +120,7 @@ public class Signup extends AbstractController implements Showable, Initializabl
     private boolean isValidPassword(String password) {
         password = password.trim();
         return (
-            this.hasAtLeastNCharacters(password, 10) &&
+            hasAtLeastNCharacters(password, 10) &&
             password.chars().filter(Character::isLowerCase).count() >= 1 &&
             password.chars().filter(Character::isUpperCase).count() >= 1 &&
             hasSpecialCharacter(password) &&
@@ -122,10 +128,81 @@ public class Signup extends AbstractController implements Showable, Initializabl
         );
     }
 
+    private static void changeBackgroundColor(TextField field, String status) {
+        //error - adding red color
+        //success - adding green color
+        //halt, clear, etc. - removing all added attributes without any additions
+
+        field.getStyleClass().removeAll("errorColor");
+        field.getStyleClass().removeAll("successColor");
+
+        String classForRemoval = "";
+        String classForAddition = "";
+
+        switch(status) {
+            case "error":
+                classForRemoval = "successColor";
+                classForAddition = "errorColor";
+                break;
+            case "success":
+                classForRemoval = "errorColor";
+                classForAddition = "successColor";
+                break;
+            default:
+                return;
+        }
+
+        field.getStyleClass().removeAll(classForRemoval);
+        field.getStyleClass().add(classForAddition);
+    }
+
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnStatus.setVisible(false);
+
+
+        ///TODO: !!!!
+        ////PRODUCTION MODE FOR OUR OK BUTTON
+        btnOk.setDisable(false);
+        ////
+
+        changeBackgroundColor(fldFirstname, "clear");
+        changeBackgroundColor(fldLastname, "clear");
+        changeBackgroundColor(fldPassword, "clear");
+        changeBackgroundColor(fldUsername, "clear");
+
+
+        fldFirstname.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (hasAtLeastNCharacters(newValue, 2))
+                changeBackgroundColor(fldFirstname, "success");
+            else
+                changeBackgroundColor(fldFirstname, "error");
+        });
+
+        fldLastname.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (hasAtLeastNCharacters(newValue, 2))
+                changeBackgroundColor(fldLastname, "success");
+            else
+                changeBackgroundColor(fldLastname, "error");
+        });
+
+        fldUsername.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (hasAtLeastNCharacters(newValue, 5))
+                changeBackgroundColor(fldUsername, "success");
+            else
+                changeBackgroundColor(fldUsername, "error");
+        });
+
+        fldPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (isValidPassword(newValue))
+                changeBackgroundColor(fldPassword, "success");
+            else
+                changeBackgroundColor(fldPassword, "error");
+        });
+
+        choiceDepartment.setItems(Department.getObservableList());
+        choiceDepartment.setValue(Department.HARDWARE);
     }
 
     public void startCheckEmail(ActionEvent actionEvent) {
@@ -137,5 +214,14 @@ public class Signup extends AbstractController implements Showable, Initializabl
 
         Thread verifyEmailThread = new Thread(() -> checkEmailVerifalia(fldEmail.getText()));
         verifyEmailThread.start();
+    }
+
+
+    public void onOk(ActionEvent actionEvent) {
+
+    }
+
+    public void onCancel(ActionEvent actionEvent) {
+        ((Stage)((Button)actionEvent.getSource()).getScene().getWindow()).close();
     }
 }

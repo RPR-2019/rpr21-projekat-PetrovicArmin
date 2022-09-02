@@ -7,8 +7,6 @@ q
 Atest/ba/unsa/etf/rpr/bugtracker/common/database/DatabaseTest.java,6/f/6fc9d9414f5d5897fabc7503d85595235e2ad9bd
 h
 8src/ba/unsa/etf/rpr/bugtracker/common/enums/Urgency.java,d/1/d140defeb0c79d4b1427932850b914e4500f5e0d
-k
-;src/ba/unsa/etf/rpr/bugtracker/common/enums/Department.java,8/8/88264407ebb39e8b40549cdb00df46ef6761718e
 i
 9src/ba/unsa/etf/rpr/bugtracker/common/enums/Language.java,3/a/3ab616d6afa6cf8f3c4bd33e9c3844dcf019752d
 l

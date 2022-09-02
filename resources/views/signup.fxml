@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Signup">
+<GridPane alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="608.0" stylesheets="@../css/signup.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.bugtracker.controllers.Signup">
   <columnConstraints>
     <ColumnConstraints />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,9 +35,9 @@
             <Insets right="10.0" />
          </GridPane.margin>
          <buttons>
-            <Button fx:id="btnOk" defaultButton="true" disable="true" mnemonicParsing="false" text="OK" />
+            <Button fx:id="btnOk" defaultButton="true" disable="true" onAction="#onOk" mnemonicParsing="false" text="OK" />
             <Button mnemonicParsing="false" onAction="#startCheckEmail" text="%app.signup.verify" />
-            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" text="%app.signup.cancel" />
+            <Button fx:id="btnCancel" cancelButton="true" onAction="#onCancel" mnemonicParsing="false" text="%app.signup.cancel" />
          </buttons>
       </ButtonBar>
       <Label alignment="CENTER" text="%app.signup.firstname" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
@@ -79,7 +79,7 @@
             </Button>
          </children>
       </HBox>
-      <ChoiceBox fx:id="fldChoiceBox" maxWidth="1.7976931348623157E308" prefHeight="24.0" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+      <ChoiceBox fx:id="choiceDepartment" maxWidth="1.7976931348623157E308" prefHeight="24.0" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
