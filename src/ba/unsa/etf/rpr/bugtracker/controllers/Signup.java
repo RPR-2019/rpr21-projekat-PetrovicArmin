@@ -174,6 +174,9 @@ public class Signup extends AbstractController implements Showable, Initializabl
         changeBackgroundColor(fldPassword, "clear");
         changeBackgroundColor(fldUsername, "clear");
 
+        fldEmail.textProperty().addListener((obs, old, neww) -> {
+            btnOk.setDisable(true);
+        });
 
         fldFirstname.textProperty().addListener((observable, oldValue, newValue) -> {
             if (hasAtLeastNCharacters(newValue, 2))
