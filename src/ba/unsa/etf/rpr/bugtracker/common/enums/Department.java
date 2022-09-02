@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.bugtracker.common.enums;
 
+import ba.unsa.etf.rpr.bugtracker.common.exceptions.InvalidIndexException;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,5 +35,11 @@ public enum Department {
     @Override
     public String toString() {
          return this.name;
-     }
+    }
+
+    public static Department intToDepartment(int value) throws InvalidIndexException {
+        if (value < 0 || value >= Department.values().length)
+            throw new InvalidIndexException("Department index not valid!");
+        return Department.values()[value];
+    }
 }

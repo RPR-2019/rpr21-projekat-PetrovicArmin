@@ -9,8 +9,6 @@ h
 8src/ba/unsa/etf/rpr/bugtracker/common/enums/Urgency.java,d/1/d140defeb0c79d4b1427932850b914e4500f5e0d
 i
 9src/ba/unsa/etf/rpr/bugtracker/common/enums/Language.java,3/a/3ab616d6afa6cf8f3c4bd33e9c3844dcf019752d
-l
-<src/ba/unsa/etf/rpr/bugtracker/common/database/Database.java,5/e/5e0a998ee7755e2c363802c49afc5f0ce2155857
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 :

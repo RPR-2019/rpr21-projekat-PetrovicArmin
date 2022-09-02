@@ -6,12 +6,12 @@ import ba.unsa.etf.rpr.bugtracker.common.exceptions.AlreadyInDatabaseException;
 import ba.unsa.etf.rpr.bugtracker.common.exceptions.InvalidPasswordException;
 import ba.unsa.etf.rpr.bugtracker.common.exceptions.ShortParameterException;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
+import ba.unsa.etf.rpr.bugtracker.models.User;
 import com.verifalia.api.VerifaliaRestClient;
 import com.verifalia.api.emailvalidations.WaitingStrategy;
 import com.verifalia.api.emailvalidations.models.Validation;
 import com.verifalia.api.exceptions.VerifaliaException;
 import javafx.application.Platform;
-import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -165,12 +165,8 @@ public class Signup extends AbstractController implements Showable, Initializabl
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnStatus.setVisible(false);
+        btnOk.setDisable(true);
         this.resourceBundle = resourceBundle;
-
-        ///TODO: !!!!
-        ////PRODUCTION MODE FOR OUR OK BUTTON
-        btnOk.setDisable(false);
-        ////
 
         changeBackgroundColor(fldFirstname, "clear");
         changeBackgroundColor(fldLastname, "clear");
@@ -240,7 +236,14 @@ public class Signup extends AbstractController implements Showable, Initializabl
             if (database.getUserByUsername(fldUsername.getText()) != null)
                 throw new AlreadyInDatabaseException("app.signup.alreadyInDatabaseUsername");
 
-            //here we are ready to go into login page, and to save user in database!
+            //works because of autocommit!
+            User currentUser = new User(0, fldUsername.getText(), fldLastname.getText(), fldFirstname.getText(), fldEmail.getText(), fldPassword.getText(), choiceDepartment.getSelectionModel().getSelectedItem());
+            database.storeUser(currentUser);
+            currentUser.setId(database.getUserByEmail(currentUser.getEmail()).getId());
+
+            Stage dashboardStage = new Stage();
+            Dashboard dashboardController = new Dashboard(currentUser);
+            showStage(dashboardStage, "/views/dashboard.fxml", "app.dashboard.title", 800, 600, dashboardController);
         } catch (ShortParameterException | InvalidPasswordException | AlreadyInDatabaseException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(resourceBundle.getString("app.signup.errorTitle"));
