@@ -1,5 +1,9 @@
 package ba.unsa.etf.rpr.bugtracker.common.database;
 
+import ba.unsa.etf.rpr.bugtracker.common.enums.Department;
+import ba.unsa.etf.rpr.bugtracker.common.exceptions.InvalidIndexException;
+import ba.unsa.etf.rpr.bugtracker.models.User;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
@@ -15,6 +19,11 @@ public class Database {
     private PreparedStatement deleteFromBugs = null;
     private PreparedStatement deleteFromSolutions = null;
     private PreparedStatement deleteFromSequence = null;
+
+    private PreparedStatement selectUserByUsername = null;
+    private PreparedStatement selectUserByEmail = null;
+
+    private PreparedStatement insertNewUser = null;
 
     private Database() {
         databaseFolder = Paths.get(System.getProperty("user.dir"), "src", "ba", "unsa", "etf", "rpr", "bugtracker", "common", "database").toString();
@@ -80,10 +89,63 @@ public class Database {
         instance = null;
     }
 
+    public User getUserByEmail(String email) {
+        try {
+            selectUserByEmail.setString(1, email);
+            return getUser(selectUserByEmail);
+        } catch (SQLException | InvalidIndexException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private User getUser(PreparedStatement stmt) throws SQLException, InvalidIndexException {
+        var rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            //id(1), username(4), lastname(3), firstname(2), email(6), password(5), department(7)
+            return new User(rs.getInt(1), rs.getString(4), rs.getString(3), rs.getString(2), rs.getString(6), rs.getString(5), Department.intToDepartment(rs.getInt(7)));
+        }
+
+        return null;
+    }
+
+    public User getUserByUsername(String username) {
+        try {
+            selectUserByUsername.setString(1, username);
+            return getUser(selectUserByUsername);
+        } catch (SQLException | InvalidIndexException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     private void prepareStatements() throws SQLException {
         deleteFromUsers = conn.prepareStatement("DELETE FROM User;");
         deleteFromBugs = conn.prepareStatement("DELETE FROM Bug;");
         deleteFromSolutions = conn.prepareStatement("DELETE FROM Solution;");
         deleteFromSequence = conn.prepareStatement("DELETE FROM Sqlite_sequence;");
+
+        selectUserByUsername = conn.prepareStatement("SELECT * FROM User WHERE username = ?;");
+        selectUserByEmail = conn.prepareStatement("SELECT * FROM User WHERE email = ?;");
+        insertNewUser = conn.prepareStatement("INSERT INTO User(firstname, lastname, username, password, email, department) VALUES(?,?,?,?,?,?)");
+    }
+
+    public void storeUser(User user) {
+
+        try {
+            insertNewUser.setString(1, user.getFirstname());
+            insertNewUser.setString(2, user.getLastname());
+            insertNewUser.setString(3, user.getUsername());
+            insertNewUser.setString(4, user.getPassword());
+            insertNewUser.setString(5, user.getEmail());
+            insertNewUser.setInt(6, user.getDepartment().ordinal());
+            insertNewUser.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

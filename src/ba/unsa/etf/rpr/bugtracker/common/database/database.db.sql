@@ -39,4 +39,6 @@ CREATE TABLE IF NOT EXISTS "Solution" (
 	FOREIGN KEY("id") REFERENCES "Bug"("id")
 );
 
+/*add default fields in database, in order to be able to test values in database in testfx and junit tests!*/
+
 COMMIT;

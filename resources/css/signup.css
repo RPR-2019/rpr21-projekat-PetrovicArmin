@@ -1,0 +1,14 @@
+.statusBtn {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.errorColor {
+    -fx-background-color: lightpink;
+}
+
+.successColor {
+    -fx-background-color: lightgreen;
+}
