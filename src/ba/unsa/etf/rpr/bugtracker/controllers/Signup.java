@@ -2,6 +2,9 @@ package ba.unsa.etf.rpr.bugtracker.controllers;
 
 import ba.unsa.etf.rpr.bugtracker.common.database.Database;
 import ba.unsa.etf.rpr.bugtracker.common.enums.Department;
+import ba.unsa.etf.rpr.bugtracker.common.exceptions.AlreadyInDatabaseException;
+import ba.unsa.etf.rpr.bugtracker.common.exceptions.InvalidPasswordException;
+import ba.unsa.etf.rpr.bugtracker.common.exceptions.ShortParameterException;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
 import com.verifalia.api.VerifaliaRestClient;
 import com.verifalia.api.emailvalidations.WaitingStrategy;
@@ -23,6 +26,8 @@ import java.util.regex.Pattern;
 
 
 public class Signup extends AbstractController implements Showable, Initializable {
+    private ResourceBundle resourceBundle;
+
     public Button btnOk;
     public Button btnCancel;
     public TextField fldFirstname;
@@ -160,7 +165,7 @@ public class Signup extends AbstractController implements Showable, Initializabl
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnStatus.setVisible(false);
-
+        this.resourceBundle = resourceBundle;
 
         ///TODO: !!!!
         ////PRODUCTION MODE FOR OUR OK BUTTON
@@ -218,7 +223,32 @@ public class Signup extends AbstractController implements Showable, Initializabl
 
 
     public void onOk(ActionEvent actionEvent) {
+        try {
+            if (!hasAtLeastNCharacters(fldFirstname.getText(), 2))
+                throw new ShortParameterException("app.signup.atLeast2CharFirst");
+            if (!hasAtLeastNCharacters(fldLastname.getText(), 2))
+                throw new ShortParameterException("app.signup.atLeast2CharLast");
+            if (!hasAtLeastNCharacters(fldUsername.getText(), 5))
+                throw new ShortParameterException("app.signup.atLeast5CharUser");
 
+            if (!isValidPassword(fldPassword.getText()))
+                throw new InvalidPasswordException("app.signup.invalidPassword");
+
+
+            if (database.getUserByEmail(fldEmail.getText()) != null)
+                throw new AlreadyInDatabaseException("app.signup.alreadyInDatabaseEmail");
+            if (database.getUserByUsername(fldUsername.getText()) != null)
+                throw new AlreadyInDatabaseException("app.signup.alreadyInDatabaseUsername");
+
+            //here we are ready to go into login page, and to save user in database!
+        } catch (ShortParameterException | InvalidPasswordException | AlreadyInDatabaseException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(resourceBundle.getString("app.signup.errorTitle"));
+            alert.setHeaderText(resourceBundle.getString("app.signup.errorHeader"));
+            alert.setContentText(resourceBundle.getString(e.getMessage()));
+
+            alert.showAndWait();
+        }
     }
 
     public void onCancel(ActionEvent actionEvent) {
