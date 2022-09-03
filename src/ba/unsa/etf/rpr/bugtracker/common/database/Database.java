@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Database {
@@ -24,6 +26,7 @@ public class Database {
     private PreparedStatement selectUserByEmail = null;
 
     private PreparedStatement insertNewUser = null;
+    private PreparedStatement selectAllUsers = null;
 
     private Database() {
         databaseFolder = Paths.get(System.getProperty("user.dir"), "src", "ba", "unsa", "etf", "rpr", "bugtracker", "common", "database").toString();
@@ -131,6 +134,20 @@ public class Database {
         selectUserByUsername = conn.prepareStatement("SELECT * FROM User WHERE username = ?;");
         selectUserByEmail = conn.prepareStatement("SELECT * FROM User WHERE email = ?;");
         insertNewUser = conn.prepareStatement("INSERT INTO User(firstname, lastname, username, password, email, department) VALUES(?,?,?,?,?,?)");
+        selectAllUsers = conn.prepareStatement("SELECT * FROM User;");
+    }
+
+    List<User> getAllUsers() {
+        List<User> list = new ArrayList<>();
+        try {
+            var rs = selectAllUsers.executeQuery();
+            while (rs.next())
+                list.add(new User(rs.getInt(1), rs.getString(4), rs.getString(3), rs.getString(2), rs.getString(6), rs.getString(5), Department.intToDepartment(rs.getInt(7))));
+        } catch (SQLException | InvalidIndexException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public void storeUser(User user) {

@@ -20,5 +20,3 @@ k
 ;src/ba/unsa/etf/rpr/bugtracker/common/enums/Department.java,8/8/88264407ebb39e8b40549cdb00df46ef6761718e
 i
 9src/ba/unsa/etf/rpr/bugtracker/common/other/Showable.java,4/f/4f7285458d363eef0281e7967d809198c6c6b66f
-n
->src/ba/unsa/etf/rpr/bugtracker/common/database/database.db.sql,c/f/cfd4c554347fb5682734232d447c3f156e98fc78
