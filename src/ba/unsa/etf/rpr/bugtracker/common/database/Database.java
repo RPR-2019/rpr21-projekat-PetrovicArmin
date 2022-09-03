@@ -1,13 +1,19 @@
 package ba.unsa.etf.rpr.bugtracker.common.database;
 
 import ba.unsa.etf.rpr.bugtracker.common.enums.Department;
+import ba.unsa.etf.rpr.bugtracker.common.enums.Language;
+import ba.unsa.etf.rpr.bugtracker.common.enums.Urgency;
 import ba.unsa.etf.rpr.bugtracker.common.exceptions.InvalidIndexException;
+import ba.unsa.etf.rpr.bugtracker.models.ActiveBug;
+import ba.unsa.etf.rpr.bugtracker.models.Bug;
 import ba.unsa.etf.rpr.bugtracker.models.User;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -28,6 +34,10 @@ public class Database {
     private PreparedStatement insertNewUser = null;
     private PreparedStatement selectAllUsers = null;
     private PreparedStatement updateUserByUsername = null;
+
+
+    private PreparedStatement insertNewBug = null;
+    private PreparedStatement getBugByTitle = null;
 
     private Database() {
         databaseFolder = Paths.get(System.getProperty("user.dir"), "src", "ba", "unsa", "etf", "rpr", "bugtracker", "common", "database").toString();
@@ -152,6 +162,27 @@ public class Database {
         insertNewUser = conn.prepareStatement("INSERT INTO User(firstname, lastname, username, password, email, department) VALUES(?,?,?,?,?,?)");
 
         updateUserByUsername = conn.prepareStatement("UPDATE User SET lastname = ?, firstname = ?, password = ?, department = ? WHERE username = ?;");
+
+        insertNewBug = conn.prepareStatement("INSERT INTO Bug(title, description, language, urgency, keywords, code, date, imageUrl, asker_id) VALUES(?,?,?,?,?,?,?,?,?);");
+        getBugByTitle = conn.prepareStatement("SELECT * FROM Bug WHERE title = ?;");
+    }
+
+    public Bug getBugByTitle(String title) {
+        ActiveBug returnBug = null;
+        try {
+            getBugByTitle.setString(1, title);
+
+            var rs = getBugByTitle.executeQuery();
+
+            if (rs.next()) {
+                var id = rs.getInt(10);
+                returnBug = new ActiveBug(rs.getInt(1), rs.getString(2), rs.getString(3), Language.intToLanguage(rs.getInt(4)), Urgency.intToUrgency(rs.getInt(5)), rs.getString(6), rs.getString(7), rs.getString(9), getAllUsers().stream().filter(usr -> usr.getId() == id).findFirst().orElse(null), LocalDate.parse(rs.getString(8)));
+            }
+        } catch (SQLException | InvalidIndexException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return returnBug;
     }
 
     List<User> getAllUsers() {
@@ -181,5 +212,23 @@ public class Database {
             e.printStackTrace();
         }
 
+    }
+
+    public void storeBug(ActiveBug bug) {
+        try {
+            insertNewBug.setString(1, bug.getTitle());
+            insertNewBug.setString(2, bug.getDescription());
+            insertNewBug.setInt(3, bug.getLanguage().ordinal());
+            insertNewBug.setInt(4, bug.getUrgency().ordinal());
+            insertNewBug.setString(5, bug.getKeywords());
+            insertNewBug.setString(6, bug.getCode());
+            insertNewBug.setString(7, bug.getDatePosted().format(DateTimeFormatter.ISO_LOCAL_DATE));
+            insertNewBug.setString(8, bug.getImageUrl());
+            insertNewBug.setInt(9, bug.getUserWhoAsked().getId());
+
+            insertNewBug.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
