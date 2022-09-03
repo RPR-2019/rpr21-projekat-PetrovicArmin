@@ -6,7 +6,6 @@ import ba.unsa.etf.rpr.bugtracker.common.enums.Language;
 import ba.unsa.etf.rpr.bugtracker.common.enums.Urgency;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
 import ba.unsa.etf.rpr.bugtracker.models.ActiveBug;
-import ba.unsa.etf.rpr.bugtracker.models.Bug;
 import ba.unsa.etf.rpr.bugtracker.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -29,6 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class Create extends AbstractController implements Showable, Initializable {
+    public Button btnOk;
     public TextField fldTitle;
     public ChoiceBox<Urgency> choiceUrgency;
     public TextArea descriptionArea;
@@ -146,6 +145,14 @@ public class Create extends AbstractController implements Showable, Initializabl
             alert.setTitle(resourceBundle.getString("app.signup.errorTitle"));
             alert.setHeaderText(resourceBundle.getString("app.signup.errorHeader"));
             alert.setContentText(resourceBundle.getString("app.create.errorText"));
+
+            alert.showAndWait();
+            return;
+        } else if (database.getBugByTitle(fldTitle.getText()) != null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(resourceBundle.getString("app.signup.errorTitle"));
+            alert.setHeaderText(resourceBundle.getString("app.signup.errorHeader"));
+            alert.setContentText(resourceBundle.getString("app.create.databaseErrorText"));
 
             alert.showAndWait();
             return;

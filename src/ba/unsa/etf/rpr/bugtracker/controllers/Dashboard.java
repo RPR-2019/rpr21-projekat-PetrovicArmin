@@ -57,6 +57,6 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     public void createNew(ActionEvent actionEvent) {
         Stage s = new Stage();
         Create controller = new Create(currentUser);
-        showStage(s, "/views/create.fxml", "app.create.title", 500, 600, controller);
+        showStage(s, "/views/create.fxml", "app.create.title", 800, 600, controller);
     }
 }
