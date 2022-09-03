@@ -41,7 +41,7 @@ public class Welcome extends AbstractController implements Initializable, Showab
         //TODO - go from this to login window
         Stage loginStage = new Stage();
         loginStage.setResizable(false);
-        this.showStage(loginStage, "/views/login.fxml", "app.login.title", 300, 300);
+        this.showStage(loginStage, "/views/login.fxml", "app.login.title", 400, 120);
     }
 
     public void showSignup(ActionEvent actionEvent) {

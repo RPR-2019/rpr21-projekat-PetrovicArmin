@@ -1,0 +1,7 @@
+.errorColor {
+    -fx-background-color: lightpink;
+}
+
+.successColor {
+    -fx-background-color: lightgreen;
+}
