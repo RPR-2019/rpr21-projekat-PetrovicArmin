@@ -40,6 +40,8 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     public void onProfile(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Profile controller = new Profile(currentUser, this);
+        stage.setMinWidth(400);
+        stage.setMinHeight(250);
         showStage(stage, "/views/profile.fxml", "app.profile.title", 400, 200, controller);
     }
 

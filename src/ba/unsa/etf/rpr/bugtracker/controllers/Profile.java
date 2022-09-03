@@ -34,7 +34,8 @@ public class Profile extends AbstractController implements Showable, Initializab
     public ChoiceBox<Department> choiceDepartment;
 
     public Profile(User user, Dashboard controller) {
-        this.user = user;
+        //we need deep copy in order to work properly!
+        this.user = new User(user.getId(), user.getUsername(), user.getLastname(), user.getFirstname(), user.getEmail(), user.getPassword(), user.getDepartment());
         this.database = Database.getInstance();
         this.parentController = controller;
     }

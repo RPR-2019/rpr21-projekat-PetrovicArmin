@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr.bugtracker.controllers;
 
 import ba.unsa.etf.rpr.bugtracker.common.database.Database;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
-import ba.unsa.etf.rpr.bugtracker.models.User;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;

@@ -14,7 +14,7 @@
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/profile.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <GridPane hgap="10.0" BorderPane.alignment="CENTER">
+      <GridPane hgap="20.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -33,10 +33,10 @@
             <Label text="%app.signup.firstname" GridPane.rowIndex="1" />
             <Label text="%app.signup.password" GridPane.rowIndex="2" />
             <Label text="%app.signup.department" GridPane.rowIndex="3" />
-            <TextField fx:id="fldLastname" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
-            <TextField fx:id="fldFirstname" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="fldPassword" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ChoiceBox fx:id="choiceDepartment" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="fldLastname" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+            <TextField fx:id="fldFirstname" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+            <TextField fx:id="fldPassword" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="choiceDepartment" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </center>
