@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(ApplicationExtension.class)
 class SignupTest implements Showable {
     private Signup controller;
-    private Stage stage;
 
     //CANNOT test email functionality, because API has only limited number of
     //free email verifications to do!
@@ -26,7 +25,6 @@ class SignupTest implements Showable {
     @Start
     public void start(Stage stage) throws Exception{
         stage.setResizable(Boolean.parseBoolean("true"));
-        this.stage = stage;
         controller = (Signup) showStage(stage, "/views/signup.fxml", "app.signup.title", 800, 300);
         controller.btnOk.setDisable(false); //for testing purposes only!
     }

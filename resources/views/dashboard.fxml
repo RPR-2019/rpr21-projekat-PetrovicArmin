@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
             <Label fx:id="basicLabel" text="Welcome to dashboard!">dd</Label>
    <center>
       <Label fx:id="testLabel" text="Label" BorderPane.alignment="CENTER" />
    </center>
+   <top>
+      <MenuBar id="menuBar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu id="menu" mnemonicParsing="false" styleClass="menu" text="%app.dashboard.bug">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#createNew" styleClass="menuItem" text="%app.dashboard.new" />
+                  <MenuItem mnemonicParsing="false" styleClass="menuItem" text="%app.dashboard.import" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" styleClass="menu" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" styleClass="menuItem" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" styleClass="menu" text="%app.dashboard.account">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#onProfile" styleClass="menuItem" text="%app.dashboard.profile" />
+                  <MenuItem mnemonicParsing="false" onAction="#onLogout" styleClass="menuItem" text="%app.dashboard.logout" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
 </BorderPane>
