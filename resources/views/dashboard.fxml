@@ -14,9 +14,10 @@
    <top>
       <MenuBar id="menuBar" BorderPane.alignment="CENTER">
         <menus>
-          <Menu id="menu" mnemonicParsing="false" styleClass="menu" text="File">
+          <Menu id="menu" mnemonicParsing="false" styleClass="menu" text="%app.dashboard.bug">
             <items>
-              <MenuItem mnemonicParsing="false" styleClass="menuItem" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#createNew" styleClass="menuItem" text="%app.dashboard.new" />
+                  <MenuItem mnemonicParsing="false" styleClass="menuItem" text="%app.dashboard.import" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" styleClass="menu" text="Edit">

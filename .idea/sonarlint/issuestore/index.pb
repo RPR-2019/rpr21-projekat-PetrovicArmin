@@ -18,5 +18,3 @@ j
 :test/ba/unsa/etf/rpr/bugtracker/controllers/AboutTest.java,5/e/5e81b470562eff65370c9e356f0c74072bcc6efe
 k
 ;src/ba/unsa/etf/rpr/bugtracker/common/enums/Department.java,8/8/88264407ebb39e8b40549cdb00df46ef6761718e
-i
-9src/ba/unsa/etf/rpr/bugtracker/common/other/Showable.java,4/f/4f7285458d363eef0281e7967d809198c6c6b66f

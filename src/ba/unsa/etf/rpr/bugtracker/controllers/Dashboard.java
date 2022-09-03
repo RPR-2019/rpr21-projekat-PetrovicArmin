@@ -6,9 +6,7 @@ import ba.unsa.etf.rpr.bugtracker.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -54,5 +52,11 @@ public class Dashboard extends AbstractController implements Showable, Initializ
 
     public void onLogout(ActionEvent actionEvent) {
         ((Stage)testLabel.getScene().getWindow()).close();
+    }
+
+    public void createNew(ActionEvent actionEvent) {
+        Stage s = new Stage();
+        Create controller = new Create(currentUser);
+        showStage(s, "/views/create.fxml", "app.create.title", 500, 600, controller);
     }
 }
