@@ -20,6 +20,7 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     private ResourceBundle resourceBundle;
     private Database database;
 
+
     public Dashboard(User currentUser) {
         database = Database.getInstance();
         this.setCurrentUser(currentUser);
@@ -38,8 +39,13 @@ public class Dashboard extends AbstractController implements Showable, Initializ
 
     public void onProfile(ActionEvent actionEvent) {
         Stage stage = new Stage();
-        Profile controller = new Profile(currentUser);
+        Profile controller = new Profile(currentUser, this);
         showStage(stage, "/views/profile.fxml", "app.profile.title", 400, 500, controller);
+    }
+
+    public void refresh() {
+        Stage s = (Stage)testLabel.getScene().getWindow();
+        showStage(s, "/views/dashboard.fxml", "app.dashboard.title", 800, 600, this);
     }
 
     public void onLogout(ActionEvent actionEvent) {

@@ -27,6 +27,7 @@ public class Database {
 
     private PreparedStatement insertNewUser = null;
     private PreparedStatement selectAllUsers = null;
+    private PreparedStatement updateUserByUsername = null;
 
     private Database() {
         databaseFolder = Paths.get(System.getProperty("user.dir"), "src", "ba", "unsa", "etf", "rpr", "bugtracker", "common", "database").toString();
@@ -125,6 +126,19 @@ public class Database {
         return null;
     }
 
+    public void updateUser(User user) {
+        try {
+            updateUserByUsername.setString(1, user.getLastname());
+            updateUserByUsername.setString(2, user.getFirstname());
+            updateUserByUsername.setString(3, user.getPassword());
+            updateUserByUsername.setInt(4, user.getDepartment().ordinal());
+            updateUserByUsername.setString(5, user.getUsername());
+            updateUserByUsername.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void prepareStatements() throws SQLException {
         deleteFromUsers = conn.prepareStatement("DELETE FROM User;");
         deleteFromBugs = conn.prepareStatement("DELETE FROM Bug;");
@@ -133,8 +147,11 @@ public class Database {
 
         selectUserByUsername = conn.prepareStatement("SELECT * FROM User WHERE username = ?;");
         selectUserByEmail = conn.prepareStatement("SELECT * FROM User WHERE email = ?;");
-        insertNewUser = conn.prepareStatement("INSERT INTO User(firstname, lastname, username, password, email, department) VALUES(?,?,?,?,?,?)");
         selectAllUsers = conn.prepareStatement("SELECT * FROM User;");
+
+        insertNewUser = conn.prepareStatement("INSERT INTO User(firstname, lastname, username, password, email, department) VALUES(?,?,?,?,?,?)");
+
+        updateUserByUsername = conn.prepareStatement("UPDATE User SET lastname = ?, firstname = ?, password = ?, department = ? WHERE username = ?;");
     }
 
     List<User> getAllUsers() {
