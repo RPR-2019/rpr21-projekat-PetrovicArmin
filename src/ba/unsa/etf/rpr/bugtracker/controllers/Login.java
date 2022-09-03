@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -63,6 +64,8 @@ public class Login extends AbstractController implements Showable, Initializable
         Stage dashboardStage = new Stage();
         Dashboard dashboardController = new Dashboard(user);
         showStage(dashboardStage, "/views/dashboard.fxml", "app.dashboard.title", 800, 600, dashboardController);
+
+        ((Stage)btnCancel.getScene().getWindow()).close();
     }
 
     public void onCancel(ActionEvent actionEvent) {
