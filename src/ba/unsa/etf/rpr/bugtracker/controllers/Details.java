@@ -88,7 +88,9 @@ public class Details extends AbstractController implements Serializable, Showabl
     }
 
     public void onSolve(ActionEvent actionEvent) {
-
+        Stage stage = new Stage();
+        Solve child = new Solve(this, user, currentBug);
+        showStage(stage, "/views/solve.fxml", "app.solve.title", 800, 450, child);
     }
 
     public void onImageView(ActionEvent actionEvent) {
