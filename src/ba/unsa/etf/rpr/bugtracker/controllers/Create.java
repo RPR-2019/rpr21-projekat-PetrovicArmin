@@ -170,8 +170,12 @@ public class Create extends AbstractController implements Showable, Initializabl
 
         if (selectedFile != null) {
             try {
-                if (!Files.exists(Paths.get(resourcesPath)))
-                    Files.createDirectory(Paths.get(resourcesPath)).toFile().setWritable(true);
+                if (!Files.exists(Paths.get(resourcesPath))) {
+                    var value = Files.createDirectory(Paths.get(resourcesPath)).toFile();
+                    value.setWritable(true);
+                    value.setReadable(true);
+                    value.setExecutable(true);
+                }
                 var targetpath = Paths.get(resourcesPath, makeUniqueName(selectedFile.getName()));
                 imageUrl = targetpath.toString();
                 Files.copy(Paths.get(selectedFile.getAbsolutePath()), targetpath, StandardCopyOption.REPLACE_EXISTING);

@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
@@ -30,6 +31,7 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     private Database database;
     public FlowPane flowPane;
     public GridPane basicGridPane;
+    public Button btnOk;
 
     public Dashboard(User currentUser) {
         database = Database.getInstance();
@@ -87,7 +89,9 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     }
 
     public void onGridClicked(String bugTitle) {
-        System.out.println("Naslov buga je: " + bugTitle);
+        Stage stage = new Stage();
+        Details controller = new Details(currentUser, this, database.getBugByTitle(bugTitle));
+        showStage(stage, "/views/details.fxml", "app.details.title", 800, 600, controller);
     }
 
     @Override
@@ -146,5 +150,9 @@ public class Dashboard extends AbstractController implements Showable, Initializ
         Stage s = new Stage();
         Create controller = new Create(currentUser, this);
         showStage(s, "/views/create.fxml", "app.create.title", 800, 600, controller);
+    }
+
+    public void onOk(ActionEvent actionEvent) {
+        System.out.println("Spasili smo!");
     }
 }
