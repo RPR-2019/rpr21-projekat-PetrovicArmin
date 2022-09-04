@@ -80,7 +80,7 @@ public class Details extends AbstractController implements Serializable, Showabl
     }
 
     public void onImageView(ActionEvent actionEvent) {
-        if (!Files.exists(Paths.get(currentBug.getImageUrl()))) {
+        if (currentBug.getImageUrl() == null || currentBug.getImageUrl().equals("") || !Files.exists(Paths.get(currentBug.getImageUrl()))) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(resourceBundle.getString("app.profile.infoTitle"));
             alert.setHeaderText(resourceBundle.getString("app.profile.infoHeader"));

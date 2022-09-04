@@ -12,6 +12,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -21,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="518.0" prefWidth="811.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="518.0" prefWidth="961.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
             <Label fx:id="basicLabel" text="Welcome to dashboard!">dd</Label>
    <top>
       <MenuBar id="menuBar" BorderPane.alignment="CENTER">
@@ -54,9 +55,9 @@
       </Label>
    </bottom>
    <center>
-      <SplitPane dividerPositions="0.69221260815822" prefHeight="633.0" prefWidth="811.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.3" prefHeight="633.0" prefWidth="811.0" BorderPane.alignment="CENTER">
          <items>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="471.0" prefWidth="488.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="471.0" prefWidth="530.0">
                <content>
                   <VBox minHeight="400.0" minWidth="400.0" prefWidth="609.0" spacing="20.0">
                      <children>
@@ -128,21 +129,25 @@
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField layoutX="300.0" layoutY="58.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField layoutX="300.0" layoutY="58.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField layoutX="300.0" layoutY="138.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField layoutX="300.0" layoutY="178.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="fldUsername" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="fldLastname" layoutX="300.0" layoutY="58.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="fldFirstname" layoutX="300.0" layoutY="58.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="fldBugTitle" layoutX="300.0" layoutY="138.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="fldKeywords" layoutX="300.0" layoutY="178.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               <HBox maxWidth="1.7976931348623157E308" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                                  <children>
-                                    <RadioButton contentDisplay="BOTTOM" mnemonicParsing="false" text="%app.dashboard.solved" />
-                                    <RadioButton contentDisplay="BOTTOM" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="%app.dashboard.active" />
-                                    <RadioButton alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="151.0" layoutY="10.0" mnemonicParsing="false" text="%app.dashboard.all" />
+                                    <RadioButton contentDisplay="BOTTOM" mnemonicParsing="false" styleClass="text" text="%app.dashboard.solved">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="toggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton contentDisplay="BOTTOM" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="text" text="%app.dashboard.active" toggleGroup="$toggleGroup" />
+                                    <RadioButton alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="151.0" layoutY="10.0" mnemonicParsing="false" selected="true" styleClass="text" text="%app.dashboard.all" toggleGroup="$toggleGroup" />
                                  </children>
                               </HBox>
-                              <ChoiceBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <ChoiceBox layoutX="300.0" layoutY="258.0" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                              <ChoiceBox layoutX="300.0" layoutY="298.0" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                              <ChoiceBox fx:id="choiceUrgency" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <ChoiceBox fx:id="choiceLanguage" layoutX="300.0" layoutY="258.0" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <ChoiceBox fx:id="choiceDepartment" layoutX="300.0" layoutY="298.0" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />

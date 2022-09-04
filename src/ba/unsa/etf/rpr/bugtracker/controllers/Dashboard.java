@@ -1,6 +1,9 @@
 package ba.unsa.etf.rpr.bugtracker.controllers;
 
 import ba.unsa.etf.rpr.bugtracker.common.database.Database;
+import ba.unsa.etf.rpr.bugtracker.common.enums.Department;
+import ba.unsa.etf.rpr.bugtracker.common.enums.Language;
+import ba.unsa.etf.rpr.bugtracker.common.enums.Urgency;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
 import ba.unsa.etf.rpr.bugtracker.models.ActiveBug;
 import ba.unsa.etf.rpr.bugtracker.models.Bug;
@@ -11,8 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -20,7 +22,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -32,6 +36,16 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     public FlowPane flowPane;
     public GridPane basicGridPane;
     public Button btnOk;
+    public ToggleGroup toggleGroup;
+    public ChoiceBox<Department> choiceDepartment;
+    public ChoiceBox<Language> choiceLanguage;
+    public ChoiceBox<Urgency> choiceUrgency;
+
+    public TextField fldUsername;
+    public TextField fldLastname;
+    public TextField fldFirstname;
+    public TextField fldBugTitle;
+    public TextField fldKeywords;
 
     public Dashboard(User currentUser) {
         database = Database.getInstance();
@@ -99,12 +113,18 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
         testLabel.setText("Hello, " + currentUser);
-        this.showFilteredBugs(); //if there are no filters, this method shows all bugs that exist in database!
+
+        choiceDepartment.setItems(Department.getObservableList());
+        choiceLanguage.setItems(Language.getObservableList());
+        choiceUrgency.setItems(Urgency.getObservableList());
+
+        showFilteredBugs(database.getAllBugs());
     }
 
-    public void showFilteredBugs() {
+    public void showFilteredBugs(List<Bug> bugs) {
+        flowPane.getChildren().clear();
         //later do this method for filtering, now only show all of the bugs in database!
-        database.getAllBugs().stream().forEach((Bug bug) -> {
+        bugs.stream().forEach((Bug bug) -> {
             String info = resourceBundle.getString("app.dashboard.cardFirst");
             info += bug.getUserWhoAsked().getUsername() + " " +  resourceBundle.getString("app.dashboard.cardSecond") + " " +  bug.getDatePosted().toString();
 
@@ -153,6 +173,47 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     }
 
     public void onOk(ActionEvent actionEvent) {
-        System.out.println("Spasili smo!");
+        List<Bug> filteredBugs = database.getAllBugs();
+
+        if (((RadioButton)toggleGroup.getSelectedToggle()).getText().equals(resourceBundle.getString("app.dashboard.active")))
+            filteredBugs = filteredBugs.stream().filter(bug -> bug instanceof ActiveBug).collect(Collectors.toList());
+        else if (((RadioButton)toggleGroup.getSelectedToggle()).getText().equals(resourceBundle.getString("app.dashboard.solved")))
+            filteredBugs = filteredBugs.stream().filter(bug -> bug instanceof SolvedBug).collect(Collectors.toList());
+
+
+        if (choiceDepartment.getSelectionModel().getSelectedItem() != null)
+            filteredBugs = filteredBugs.stream().filter(bug -> bug.getUserWhoAsked().getDepartment().toString().toLowerCase().contains(choiceDepartment.getSelectionModel().getSelectedItem().toString().toLowerCase())).collect(Collectors.toList());
+        if (choiceLanguage.getSelectionModel().getSelectedItem() != null)
+            filteredBugs = filteredBugs.stream().filter(bug -> bug.getLanguage().toString().toLowerCase().contains(choiceLanguage.getSelectionModel().getSelectedItem().toString().toLowerCase())).collect(Collectors.toList());
+        if (choiceUrgency.getSelectionModel().getSelectedItem() != null)
+            filteredBugs = filteredBugs.stream().filter(bug -> bug.getUrgency().toString().toLowerCase().contains(choiceUrgency.getSelectionModel().getSelectedItem().toString().toLowerCase())).collect(Collectors.toList());
+
+        if (!fldKeywords.getText().trim().isEmpty())
+            filteredBugs = filteredBugs.stream().filter((bug -> {
+                var hasAllKeywords = true;
+                var allKeywords = fldKeywords.getText().split(",");
+
+                for (var keyword: allKeywords) {
+                    if (!bug.getKeywords().toLowerCase().contains(keyword.trim().toLowerCase())) {
+                        hasAllKeywords = false;
+                        break;
+                    }
+                }
+                return hasAllKeywords;
+            })).collect(Collectors.toList());
+
+        if (!fldBugTitle.getText().trim().isEmpty())
+            filteredBugs = filteredBugs.stream().filter(bug -> bug.getTitle().toLowerCase().contains(fldBugTitle.getText().toLowerCase().trim())).collect(Collectors.toList());
+
+        if (!fldUsername.getText().trim().isEmpty())
+            filteredBugs = filteredBugs.stream().filter(bug -> bug.getUserWhoAsked().getUsername().toLowerCase().contains(fldUsername.getText().trim().toLowerCase())).collect(Collectors.toList());
+
+        if (!fldLastname.getText().trim().isEmpty())
+            filteredBugs = filteredBugs.stream().filter(bug -> bug.getUserWhoAsked().getLastname().toLowerCase().contains(fldLastname.getText().trim().toLowerCase())).collect(Collectors.toList());
+
+        if (!fldUsername.getText().trim().isEmpty())
+            filteredBugs = filteredBugs.stream().filter(bug -> bug.getUserWhoAsked().getFirstname().toLowerCase().contains(fldFirstname.getText().trim().toLowerCase())).collect(Collectors.toList());
+
+        showFilteredBugs(filteredBugs);
     }
 }

@@ -80,6 +80,14 @@
     -fx-background-color: rgb(186, 91, 19);
 }
 
+.radio-button:top > .text {
+    -fx-rotate: 0;
+}
+
+.radio-button:top {
+    -fx-rotate: -90;
+}
+
 .cardCritical {
     -fx-background-color: rgb(232, 62, 46);
 }
