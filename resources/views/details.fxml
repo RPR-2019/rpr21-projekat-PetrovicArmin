@@ -62,7 +62,9 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
                <children>
+                  <Button fx:id="btnViewSolution" mnemonicParsing="false" onAction="#onViewSolution" text="%app.details.viewSolution" />
                 <Button fx:id="btnSolve" mnemonicParsing="false" onAction="#onSolve" text="%app.details.solve" />
+                  <Button fx:id="btnExport" mnemonicParsing="false" onAction="#onExport" text="%app.create.export" />
                   <Button fx:id="btnShowImage" mnemonicParsing="false" onAction="#onImageView" text="%app.details.image" />
                   <Label fx:id="lblImageName" />
                </children>

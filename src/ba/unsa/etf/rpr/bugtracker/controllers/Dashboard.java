@@ -253,7 +253,7 @@ public class Dashboard extends AbstractController implements Showable, Initializ
                 newBug.setId(0);
 
                 if (lines[0].startsWith("BUG:"))
-                    newBug.setTitle(lines[0].replace("BUG:", ""));
+                    newBug.setTitle(lines[0].replace("BUG:", "").trim());
                 if (lines[1].startsWith("BUG:"))
                     newBug.setDescription(lines[1].replace("BUG:", "").trim());
                 if (lines[2].startsWith("BUG:"))
@@ -279,7 +279,7 @@ public class Dashboard extends AbstractController implements Showable, Initializ
 
                 alert.showAndWait();
                 return;
-            } else if (database.getBugByTitle(newBug.getTitle()) != null) {
+            } else if (database.getBugByTitle(newBug.getTitle().trim()) != null) {
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(resourceBundle.getString("app.signup.errorTitle"));
                 alert.setHeaderText(resourceBundle.getString("app.signup.errorHeader"));

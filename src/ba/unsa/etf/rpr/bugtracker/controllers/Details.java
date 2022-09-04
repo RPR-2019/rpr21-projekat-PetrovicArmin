@@ -12,9 +12,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.web.HTMLEditor;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.nio.file.Files;
@@ -24,6 +27,7 @@ import java.util.ResourceBundle;
 
 
 public class Details extends AbstractController implements Serializable, Showable, Initializable {
+    private String defaultExportName = "exported.bug";
     public Button btnShowImage;
     public Button btnSolve;
     public Button btnOk;
@@ -33,6 +37,8 @@ public class Details extends AbstractController implements Serializable, Showabl
     public HTMLEditor htmlArea;
     public TextField fldKeywords;
     public TextField choiceLanguage;
+    public Button btnExport;
+    public Button btnViewSolution;
 
     public Dashboard getParentController() {
         return parentController;
@@ -71,8 +77,14 @@ public class Details extends AbstractController implements Serializable, Showabl
         descriptionArea.setText(currentBug.getDescription());
         htmlArea.setHtmlText(currentBug.getCode());
 
-        if (currentBug instanceof ActiveBug)
+        if (currentBug instanceof ActiveBug) {
+            btnSolve.setVisible(true);
+            btnViewSolution.setVisible(false);
+        }
+        else {
             btnSolve.setVisible(false);
+            btnViewSolution.setVisible(true);
+        }
     }
 
     public void onSolve(ActionEvent actionEvent) {
@@ -97,5 +109,42 @@ public class Details extends AbstractController implements Serializable, Showabl
 
     public void onCancel(ActionEvent event) {
         ((Stage)fldTitle.getScene().getWindow()).close();
+    }
+
+    public void onExport(ActionEvent event) {
+        DirectoryChooser chooser = new DirectoryChooser();
+
+        chooser.setTitle(resourceBundle.getString("choose.saveFile"));
+
+
+        chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+        File selectedDirectory = chooser.showDialog(btnSolve.getScene().getWindow());
+
+
+        try {
+            FileWriter fileWriter = new FileWriter(Paths.get(selectedDirectory.toString(), defaultExportName).toFile());
+            fileWriter.write("BUG: " + currentBug.getTitle() + "\n");
+            fileWriter.write("BUG: " + currentBug.getDescription() + "\n");
+            fileWriter.write("BUG: " + currentBug.getUrgency().ordinal() + "\n");
+            fileWriter.write("BUG: " + currentBug.getCode() + "\n");
+            fileWriter.write("BUG: " + currentBug.getKeywords() + "\n");
+            fileWriter.write("BUG: " + currentBug.getLanguage().ordinal() + "\n");
+            fileWriter.write("BUG: " + currentBug.getImageUrl() + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(resourceBundle.getString("app.profile.infoTitle"));
+        alert.setHeaderText(resourceBundle.getString("app.profile.infoHeader"));
+        alert.setHeaderText(resourceBundle.getString("app.details.exportSuccess"));
+
+        alert.showAndWait();
+    }
+
+    public void onViewSolution() {
+
     }
 }
