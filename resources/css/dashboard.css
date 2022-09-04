@@ -29,3 +29,73 @@
 .menuItem:pressed {
     -fx-background-color: rgb(184, 168, 127);
 }
+
+
+.button:hover {
+    -fx-background-color: rgb(245, 229, 186);
+    -fx-text-fill: rgb(35, 31, 31);
+}
+
+.button .label {
+    -fx-text-fill: rgb(35, 31, 31);
+}
+
+.button:pressed {
+    -fx-background-color: rgb(184, 168, 127);
+}
+
+.cardLittle {
+    -fx-background-color: rgb(217, 213, 156);
+}
+
+.cardLittle:hover {
+    -fx-background-color: rgb(247, 238, 109);
+}
+
+.cardLittle:pressed {
+    -fx-background-color: rgb(237, 222, 12);
+}
+
+.cardMedium {
+    -fx-background-color: rgb(247, 184, 47);
+}
+
+.cardMedium:hover {
+    -fx-background-color: rgb(242, 152, 34);
+}
+
+.cardMedium:pressed {
+    -fx-background-color: rgb(212, 132, 28);
+}
+
+.cardLarge {
+    -fx-background-color: rgb(240, 135, 55);
+}
+
+.cardLarge:hover {
+    -fx-background-color: rgb(219, 107, 22);
+}
+
+.cardLarge:pressed {
+    -fx-background-color: rgb(186, 91, 19);
+}
+
+.radio-button:top > .text {
+    -fx-rotate: 0;
+}
+
+.radio-button:top {
+    -fx-rotate: -90;
+}
+
+.cardCritical {
+    -fx-background-color: rgb(232, 62, 46);
+}
+
+.cardCritical:hover {
+    -fx-background-color: rgb(245, 149, 140);
+}
+
+.cardCritical:pressed {
+    -fx-background-color: rgb(194, 66, 54);
+}

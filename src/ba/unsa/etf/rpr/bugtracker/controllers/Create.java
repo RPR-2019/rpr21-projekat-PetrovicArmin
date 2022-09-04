@@ -34,6 +34,16 @@ public class Create extends AbstractController implements Showable, Initializabl
     public HTMLEditor htmlArea;
     public TextField fldKeywords;
     public ChoiceBox<Language> choiceLanguage;
+
+    public Dashboard getParentController() {
+        return parentController;
+    }
+
+    public void setParentController(Dashboard parentController) {
+        this.parentController = parentController;
+    }
+
+    private Dashboard parentController = null;
     public Label lblImageName;
     private String imageUrl;
     public Button btnAddImage;
@@ -43,9 +53,10 @@ public class Create extends AbstractController implements Showable, Initializabl
     File selectedFile = null;
     private String resourcesPath = Paths.get(System.getProperty("user.home"), "resources").toString();
 
-    public Create(User user) {
+    public Create(User user, Dashboard parentController) {
         database = Database.getInstance();
         this.user = user;
+        this.parentController = parentController;
     }
 
     @Override
@@ -134,7 +145,6 @@ public class Create extends AbstractController implements Showable, Initializabl
     }
 
     private String makeUniqueName(String filename) {
-        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + filename;
     }
 
@@ -160,8 +170,12 @@ public class Create extends AbstractController implements Showable, Initializabl
 
         if (selectedFile != null) {
             try {
-                if (!Files.exists(Paths.get(resourcesPath)))
-                    Files.createDirectory(Paths.get(resourcesPath)).toFile().setWritable(true);
+                if (!Files.exists(Paths.get(resourcesPath))) {
+                    var value = Files.createDirectory(Paths.get(resourcesPath)).toFile();
+                    value.setWritable(true);
+                    value.setReadable(true);
+                    value.setExecutable(true);
+                }
                 var targetpath = Paths.get(resourcesPath, makeUniqueName(selectedFile.getName()));
                 imageUrl = targetpath.toString();
                 Files.copy(Paths.get(selectedFile.getAbsolutePath()), targetpath, StandardCopyOption.REPLACE_EXISTING);
@@ -179,6 +193,9 @@ public class Create extends AbstractController implements Showable, Initializabl
         alert.setHeaderText(resourceBundle.getString("app.profile.infoHeader"));
         alert.setContentText(resourceBundle.getString("app.create.infoContent"));
         alert.showAndWait();
+
+        this.parentController.refresh();
+        ((Stage)btnAddImage.getScene().getWindow()).toFront();
     }
 
     public void onCancel(ActionEvent event) {

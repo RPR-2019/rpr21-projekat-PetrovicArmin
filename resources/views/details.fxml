@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -35,37 +34,39 @@
          <children>
             <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="20.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS">
                <children>
-                  <Label text="%app.create.bugTitle" />
-                  <TextField fx:id="fldTitle" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <Label text="%app.details.bugTitle" />
+                  <TextField fx:id="fldTitle" editable="false" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" GridPane.columnIndex="2" GridPane.columnSpan="2">
                <children>
-                  <Label text="%app.create.urgency" />
-                  <ChoiceBox fx:id="choiceUrgency" maxWidth="1.7976931348623157E308" HBox.hgrow="SOMETIMES" />
+                  <Label text="%app.details.urgency" />
+                  <TextField fx:id="choiceUrgency" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <Label maxWidth="1.7976931348623157E308" prefHeight="16.0" text="%app.create.descriptionPrompt" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
-            <TextArea fx:id="descriptionArea" maxWidth="1.7976931348623157E308" wrapText="true" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-            <HTMLEditor fx:id="htmlArea" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" maxWidth="1.7976931348623157E308" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-            <Label layoutX="20.0" layoutY="232.0" maxWidth="1.7976931348623157E308" text="%app.codePrompt" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+            <Label maxWidth="1.7976931348623157E308" prefHeight="16.0" text="%app.details.descriptionPrompt" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
+            <TextArea fx:id="descriptionArea" editable="false" maxWidth="1.7976931348623157E308" wrapText="true" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+            <HTMLEditor fx:id="htmlArea" disable="true" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" maxWidth="1.7976931348623157E308" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+            <Label layoutX="20.0" layoutY="232.0" maxWidth="1.7976931348623157E308" text="%app.details.codePrompt" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
             <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.columnSpan="4" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="5">
                <children>
-                  <Label text="%app.create.keywords" />
-                  <TextField fx:id="fldKeywords" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <Label text="%app.details.keywords" />
+                  <TextField fx:id="fldKeywords" editable="false" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.columnSpan="2" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="6">
                <children>
-                  <Label text="%app.create.language" />
-                  <ChoiceBox fx:id="choiceLanguage" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <Label text="%app.details.language" />
+                  <TextField fx:id="choiceLanguage" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
                <children>
+                  <Button fx:id="btnViewSolution" mnemonicParsing="false" onAction="#onViewSolution" text="%app.details.viewSolution" />
+                <Button fx:id="btnSolve" mnemonicParsing="false" onAction="#onSolve" text="%app.details.solve" />
+                  <Button fx:id="btnExport" mnemonicParsing="false" onAction="#onExport" text="%app.create.export" />
+                  <Button fx:id="btnShowImage" mnemonicParsing="false" onAction="#onImageView" text="%app.details.image" />
                   <Label fx:id="lblImageName" />
-                  <Label text="%app.create.image" />
-                  <Button fx:id="btnAddImage" mnemonicParsing="false" onAction="#uploadImage" styleClass="button" text="%app.create.add" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
@@ -77,8 +78,7 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button fx:id="btnOk" defaultButton="true" mnemonicParsing="false" onAction="#onOk" text="OK" />
-            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancel" text="%app.signup.cancel" />
+            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#onCancel" text="%app.signup.cancel" />
         </buttons>
          <BorderPane.margin>
             <Insets right="20.0" />
