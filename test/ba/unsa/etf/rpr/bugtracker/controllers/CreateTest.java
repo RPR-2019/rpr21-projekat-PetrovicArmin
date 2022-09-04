@@ -28,7 +28,8 @@ class CreateTest implements Showable {
 
     @Start
     public void start(Stage stage) throws Exception{
-        controller = new Create(database.getUserByUsername("bb234443"));
+        var user = database.getUserByUsername("bb234443");
+        controller = new Create(user, new Dashboard(user));
         showStage(stage, "/views/create.fxml", "app.create.title", 800, 600, controller);
     }
 
