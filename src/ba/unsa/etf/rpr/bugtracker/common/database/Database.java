@@ -40,6 +40,7 @@ public class Database {
     private PreparedStatement getAllBugs = null;
 
     private PreparedStatement getSolutionForBug = null;
+    private PreparedStatement storeSolution = null;
 
     private Database() {
         databaseFolder = Paths.get(System.getProperty("user.dir"), "src", "ba", "unsa", "etf", "rpr", "bugtracker", "common", "database").toString();
@@ -169,6 +170,7 @@ public class Database {
         getBugByTitle = conn.prepareStatement("SELECT * FROM Bug WHERE title = ?;");
         getAllBugs = conn.prepareStatement("SELECT * FROM Bug;");
         getSolutionForBug = conn.prepareStatement("SELECT * FROM Solution WHERE id = ?;");
+        storeSolution = conn.prepareStatement("INSERT INTO Solution (id, description, date, code, imageUrl, solver_id) VALUES (?,?,?,?,?,?);");
     }
 
     public User getUserById(int id) {
@@ -185,7 +187,7 @@ public class Database {
                 if (solution == null)
                     allBugs.add(new ActiveBug(rs.getInt(1), rs.getString(2), rs.getString(3), Language.intToLanguage(rs.getInt(4)), Urgency.intToUrgency(rs.getInt(5)), rs.getString(6), rs.getString(7), rs.getString(9), getUserById(usrId), LocalDate.parse(rs.getString(8))));
                 else
-                    allBugs.add(new SolvedBug(rs.getInt(1), rs.getString(2), rs.getString(3), Language.intToLanguage(rs.getInt(4)), Urgency.intToUrgency(rs.getInt(5)), rs.getString(6), rs.getString(7), rs.getString(9), getUserById(usrId), LocalDate.parse(rs.getString(8)), getSolutionForBug(rs.getInt(1))));
+                    allBugs.add(new SolvedBug(rs.getInt(1), rs.getString(2), rs.getString(3), Language.intToLanguage(rs.getInt(4)), Urgency.intToUrgency(rs.getInt(5)), rs.getString(6), rs.getString(7), rs.getString(9), getUserById(usrId), LocalDate.parse(rs.getString(8)), solution));
             }
         } catch (SQLException | InvalidIndexException throwables) {
             throwables.printStackTrace();
@@ -210,21 +212,24 @@ public class Database {
     }
 
     public Bug getBugByTitle(String title) {
-        ActiveBug returnBug = null;
         try {
             getBugByTitle.setString(1, title);
 
             var rs = getBugByTitle.executeQuery();
 
             if (rs.next()) {
-                var id = rs.getInt(10);
-                returnBug = new ActiveBug(rs.getInt(1), rs.getString(2), rs.getString(3), Language.intToLanguage(rs.getInt(4)), Urgency.intToUrgency(rs.getInt(5)), rs.getString(6), rs.getString(7), rs.getString(9), getUserById(id), LocalDate.parse(rs.getString(8)));
+                var userId = rs.getInt(10);
+                var solution = getSolutionForBug(rs.getInt(1));
+                if (solution == null)
+                    return new ActiveBug(rs.getInt(1), rs.getString(2), rs.getString(3), Language.intToLanguage(rs.getInt(4)), Urgency.intToUrgency(rs.getInt(5)), rs.getString(6), rs.getString(7), rs.getString(9), getUserById(userId), LocalDate.parse(rs.getString(8)));
+                else
+                    return new SolvedBug(rs.getInt(1), rs.getString(2), rs.getString(3), Language.intToLanguage(rs.getInt(4)), Urgency.intToUrgency(rs.getInt(5)), rs.getString(6), rs.getString(7), rs.getString(9), getUserById(userId), LocalDate.parse(rs.getString(8)), solution);
             }
         } catch (SQLException | InvalidIndexException throwables) {
             throwables.printStackTrace();
         }
 
-        return returnBug;
+        return null;
     }
 
     List<User> getAllUsers() {
@@ -269,6 +274,20 @@ public class Database {
             insertNewBug.setInt(9, bug.getUserWhoAsked().getId());
 
             insertNewBug.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void storeSolution(Solution solution) {
+        try {
+            storeSolution.setInt(1, solution.getId());
+            storeSolution.setString(2, solution.getDescription());
+            storeSolution.setString(3, solution.getDatePosted().toString());
+            storeSolution.setString(4, solution.getCode());
+            storeSolution.setString(5, solution.getImageUrl());
+            storeSolution.setInt(6, solution.getUserWhoSolved().getId());
+            storeSolution.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

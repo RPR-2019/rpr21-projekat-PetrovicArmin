@@ -149,4 +149,9 @@ public class Details extends AbstractController implements Serializable, Showabl
     public void onViewSolution() {
 
     }
+
+    public void exitYourselfAndChild(Solve solve) {
+        ((Stage)solve.btnCancel.getScene().getWindow()).close();
+        ((Stage)btnExport.getScene().getWindow()).close();
+    }
 }
