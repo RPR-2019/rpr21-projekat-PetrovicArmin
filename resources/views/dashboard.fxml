@@ -30,7 +30,7 @@
           <Menu id="menu" mnemonicParsing="false" styleClass="menu" text="%app.dashboard.bug">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#createNew" styleClass="menuItem" text="%app.dashboard.new" />
-                  <MenuItem mnemonicParsing="false" styleClass="menuItem" text="%app.dashboard.import" />
+                  <MenuItem fx:id="btnImport" mnemonicParsing="false" onAction="#onImport" styleClass="menuItem" text="%app.dashboard.import" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" styleClass="menu" text="Edit">
@@ -55,9 +55,9 @@
       </Label>
    </bottom>
    <center>
-      <SplitPane dividerPositions="0.3" prefHeight="633.0" prefWidth="811.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.6392075078206465" prefHeight="633.0" prefWidth="811.0" BorderPane.alignment="CENTER">
          <items>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="471.0" prefWidth="530.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="471.0" prefWidth="612.0">
                <content>
                   <VBox minHeight="400.0" minWidth="400.0" prefWidth="609.0" spacing="20.0">
                      <children>
@@ -155,7 +155,7 @@
                         </GridPane>
                         <ButtonBar prefHeight="40.0" prefWidth="200.0">
                           <buttons>
-                            <Button fx:id="fldOk" mnemonicParsing="false" onAction="#onOk" text="OK" />
+                            <Button fx:id="btnOk" mnemonicParsing="false" onAction="#onOk" text="OK" />
                           </buttons>
                         </ButtonBar>
                      </children>
@@ -167,7 +167,7 @@
             </ScrollPane>
             <ScrollPane fitToHeight="true" fitToWidth="true">
                <content>
-                  <FlowPane fx:id="flowPane" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
+                  <FlowPane fx:id="flowPane" hgap="10.0" prefHeight="471.0" prefWidth="383.0" vgap="10.0">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>

@@ -4,6 +4,7 @@ import ba.unsa.etf.rpr.bugtracker.common.database.Database;
 import ba.unsa.etf.rpr.bugtracker.common.enums.Department;
 import ba.unsa.etf.rpr.bugtracker.common.enums.Language;
 import ba.unsa.etf.rpr.bugtracker.common.enums.Urgency;
+import ba.unsa.etf.rpr.bugtracker.common.exceptions.InvalidIndexException;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
 import ba.unsa.etf.rpr.bugtracker.models.ActiveBug;
 import ba.unsa.etf.rpr.bugtracker.models.Bug;
@@ -19,9 +20,14 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -46,6 +52,8 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     public TextField fldFirstname;
     public TextField fldBugTitle;
     public TextField fldKeywords;
+    public MenuItem btnImport;
+
 
     public Dashboard(User currentUser) {
         database = Database.getInstance();
@@ -215,5 +223,82 @@ public class Dashboard extends AbstractController implements Showable, Initializ
             filteredBugs = filteredBugs.stream().filter(bug -> bug.getUserWhoAsked().getFirstname().toLowerCase().contains(fldFirstname.getText().trim().toLowerCase())).collect(Collectors.toList());
 
         showFilteredBugs(filteredBugs);
+    }
+
+    public void onImport(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+
+        // Set extension filter
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("BUG files (*.bug)", "*.bug");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        // Show open file dialog
+        File file = fileChooser.showOpenDialog(btnOk.getScene().getWindow());
+        if (file != null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(resourceBundle.getString("app.profile.infoTitle"));
+            alert.setHeaderText(resourceBundle.getString("app.profile.infoHeader"));
+            alert.setContentText(resourceBundle.getString("app.import.infoText"));
+
+            var option = alert.showAndWait();
+            if (!option.isPresent())
+                return;
+
+            ActiveBug newBug = new ActiveBug(0, "", "", Language.JAVA, Urgency.LOW, "", "", "", currentUser, LocalDate.now());
+
+            try {
+                String[] lines = Files.readString(file.toPath()).split("\n");
+
+                newBug.setId(0);
+
+                if (lines[0].startsWith("BUG:"))
+                    newBug.setTitle(lines[0].replace("BUG:", ""));
+                if (lines[1].startsWith("BUG:"))
+                    newBug.setDescription(lines[1].replace("BUG:", "").trim());
+                if (lines[2].startsWith("BUG:"))
+                    newBug.setUrgency(Urgency.intToUrgency(Integer.parseInt(lines[2].replace("BUG:", "").trim())));
+                if (lines[3].startsWith("BUG:"))
+                    newBug.setCode(lines[3].replace("BUG:", "").trim());
+                if (lines[4].startsWith("BUG:"))
+                    newBug.setKeywords(lines[4].replace("BUG:", "").trim());
+                if (lines[5].startsWith("BUG:"))
+                    newBug.setLanguage(Language.intToLanguage(Integer.parseInt(lines[5].replace("BUG:", "").trim())));
+                if (lines[6].startsWith("BUG:"))
+                    newBug.setImageUrl(lines[6].replace("BUG:", "").trim());
+
+            } catch (IOException | InvalidIndexException er) {
+                er.printStackTrace();
+            }
+
+            if (newBug.getTitle().length() < 5  || newBug.getDescription().length() < 20) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(resourceBundle.getString("app.signup.errorTitle"));
+                alert.setHeaderText(resourceBundle.getString("app.signup.errorHeader"));
+                alert.setContentText(resourceBundle.getString("app.create.errorText"));
+
+                alert.showAndWait();
+                return;
+            } else if (database.getBugByTitle(newBug.getTitle()) != null) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(resourceBundle.getString("app.signup.errorTitle"));
+                alert.setHeaderText(resourceBundle.getString("app.signup.errorHeader"));
+                alert.setContentText(resourceBundle.getString("app.create.databaseErrorText"));
+
+                alert.showAndWait();
+                return;
+            }
+
+            database.storeBug(newBug);
+
+
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(resourceBundle.getString("app.profile.infoTitle"));
+            alert.setHeaderText(resourceBundle.getString("app.profile.infoHeader"));
+            alert.setContentText(resourceBundle.getString("app.create.infoContent"));
+            alert.showAndWait();
+
+            showFilteredBugs(database.getAllBugs());
+        }
     }
 }
