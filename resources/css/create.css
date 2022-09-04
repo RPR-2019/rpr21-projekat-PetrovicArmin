@@ -5,3 +5,16 @@
 .successColor {
     -fx-background-color: lightgreen;
 }
+
+.button:hover {
+    -fx-background-color: rgb(245, 229, 186);
+    -fx-text-fill: rgb(35, 31, 31);
+}
+
+.button .label {
+    -fx-text-fill: rgb(35, 31, 31);
+}
+
+.button:pressed {
+    -fx-background-color: rgb(184, 168, 127);
+}

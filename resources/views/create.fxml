@@ -65,7 +65,7 @@
                <children>
                   <Label fx:id="lblImageName" />
                   <Label text="%app.create.image" />
-                  <Button fx:id="btnAddImage" mnemonicParsing="false" onAction="#uploadImage" text="%app.create.add" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnAddImage" mnemonicParsing="false" onAction="#uploadImage" styleClass="button" text="%app.create.add" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
