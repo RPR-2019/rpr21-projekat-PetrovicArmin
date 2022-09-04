@@ -6,6 +6,7 @@ import ba.unsa.etf.rpr.bugtracker.common.enums.Urgency;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
 import ba.unsa.etf.rpr.bugtracker.models.ActiveBug;
 import ba.unsa.etf.rpr.bugtracker.models.Bug;
+import ba.unsa.etf.rpr.bugtracker.models.SolvedBug;
 import ba.unsa.etf.rpr.bugtracker.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -105,7 +106,7 @@ public class Details extends AbstractController implements Serializable, Showabl
         }
 
         Stage newStage = new Stage();
-        ShowImage shImage = new ShowImage(this, currentBug.getImageUrl());
+        ShowImage shImage = new ShowImage(currentBug.getImageUrl());
         showStage(newStage, "/views/showImage.fxml", "app.showImage.title", 800, 600, shImage);
     }
 
@@ -147,7 +148,9 @@ public class Details extends AbstractController implements Serializable, Showabl
     }
 
     public void onViewSolution() {
-
+        Stage stage = new Stage();
+        ViewSolution solution = new ViewSolution(this, user, ((SolvedBug)currentBug).getSolution());
+        showStage(stage, "/views/viewSolution.fxml", "app.viewSolution.title", 800, 400, solution);
     }
 
     public void exitYourselfAndChild(Solve solve) {

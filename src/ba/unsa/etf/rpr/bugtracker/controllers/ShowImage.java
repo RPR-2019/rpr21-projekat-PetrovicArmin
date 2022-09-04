@@ -12,11 +12,9 @@ import java.util.ResourceBundle;
 
 public class ShowImage extends AbstractController implements Showable, Initializable {
     private String imageUrl = "";
-    private Details parentController;
     public ImageView imageView;
 
-    public ShowImage(Details parentController, String imageUrl) {
-        this.parentController = parentController;
+    public ShowImage(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
