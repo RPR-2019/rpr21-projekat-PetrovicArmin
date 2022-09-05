@@ -40,5 +40,6 @@
     <orderEntry type="library" name="javafx" level="project" />
     <orderEntry type="library" name="javafx" level="project" />
     <orderEntry type="library" name="net.sf.jasperreports" level="project" />
+    <orderEntry type="library" name="json" level="project" />
   </component>
 </module>

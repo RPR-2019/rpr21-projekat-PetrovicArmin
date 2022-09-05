@@ -321,6 +321,8 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     }
 
     public void onJSONImport(ActionEvent actionEvent) {
-        System.out.println("Ovo je moja poruka!");
+        Stage stage = new Stage();
+        JsonImport controller = new JsonImport(this, currentUser);
+        showStage(stage, "/views/jsonImport.fxml", "app.json.title", 300, 300, controller);
     }
 }

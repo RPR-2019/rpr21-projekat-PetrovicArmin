@@ -1,8 +1,6 @@
 package ba.unsa.etf.rpr.bugtracker.controllers;
 
 import ba.unsa.etf.rpr.bugtracker.common.database.Database;
-import ba.unsa.etf.rpr.bugtracker.common.enums.Language;
-import ba.unsa.etf.rpr.bugtracker.common.enums.Urgency;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
 import ba.unsa.etf.rpr.bugtracker.models.ActiveBug;
 import ba.unsa.etf.rpr.bugtracker.models.Bug;
@@ -16,19 +14,21 @@ import javafx.scene.web.HTMLEditor;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 
 public class Details extends AbstractController implements Serializable, Showable, Initializable {
     private String defaultExportName = "exported.bug";
+    private final String xMasterKey = "$2b$10$aN9aF1.uLkmX71hSEaRdHewa2GKFUNUeYDq0Pl94rYUMWzayX4d6u";
+    private final String root = "https://api.jsonbin.io/v3/b";
+    private final String xCollectionId = "6315ee4ca1610e63861f17f5";
     public Button btnShowImage;
     public Button btnSolve;
     public Button btnOk;
@@ -124,7 +124,8 @@ public class Details extends AbstractController implements Serializable, Showabl
         chooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
         File selectedDirectory = chooser.showDialog(btnSolve.getScene().getWindow());
-
+        if (selectedDirectory == null)
+            return;
 
         try {
             FileWriter fileWriter = new FileWriter(Paths.get(selectedDirectory.toString(), defaultExportName).toFile());
@@ -159,7 +160,42 @@ public class Details extends AbstractController implements Serializable, Showabl
         ((Stage)btnExport.getScene().getWindow()).close();
     }
 
-    public void onApi(ActionEvent actionEvent) {
-        System.out.println("Ovo je moja poruka!");
+    public void onApi(ActionEvent actionEvent) throws IOException {
+        String jsonString = "{ \n";
+        jsonString += "    \"title\": \"" + currentBug.getTitle() + "\",\n";
+        jsonString += "    \"description\": \"" + currentBug.getDescription() + "\",\n";
+        jsonString += "    \"urgency\": " + currentBug.getUrgency().ordinal() + ",\n";
+        jsonString += "    \"code\": \"" + currentBug.getCode().replace("\"", "\\\"") + "\",\n";
+        jsonString += "    \"keywords\": \"" + currentBug.getKeywords() + "\",\n";
+        jsonString += "    \"language\": " + currentBug.getLanguage().ordinal() + ",\n";
+        jsonString += "    \"imageUrl\": \"" + currentBug.getImageUrl() + "\"\n }";
+
+        URL url = new URL(root);
+        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setRequestProperty("X-Master-Key", xMasterKey);
+        con.setRequestProperty("X-Bin-Private", "true");
+        con.setRequestProperty("X-Bin-Name", currentBug.getTitle());
+        con.setRequestProperty("X-Collection-Id", xCollectionId);
+
+        //set body content of our post request
+        con.setDoOutput(true);
+        OutputStream izlaz = con.getOutputStream();
+        byte[] input = jsonString.getBytes("utf-8");
+        izlaz.write(input, 0, input.length);
+
+        //read returned values - don't need 'em for now!
+        BufferedReader ulaz = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
+        String json = "", line = null;
+        while ((line = ulaz.readLine()) != null)
+            json = json + line;
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(resourceBundle.getString("app.solve.infoTitle"));
+        alert.setHeaderText(resourceBundle.getString("app.solve.infoHeader"));
+        alert.setContentText(resourceBundle.getString("app.export.infoTitle"));
+
+        alert.showAndWait();
     }
 }
