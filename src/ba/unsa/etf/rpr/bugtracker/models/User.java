@@ -40,7 +40,7 @@ public class User implements Serializable{
 
     @Override
     public String toString() {
-        return lastname.get() + " " + firstname.get() + " : " + username.get();
+        return username.get();
     }
 
     public int getId() {

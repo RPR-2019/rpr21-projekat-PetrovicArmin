@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl">
+  <name>BugTracker data adapter</name>
+  <driver>org.sqlite.JDBC</driver>
+  <username></username>
+  <password></password>
+  <url>jdbc:sqlite:/home/armin/BugTrackerProject/BugTracker/src/ba/unsa/etf/rpr/bugtracker/common/database/database.db</url>
+  <database></database>
+  <savePassword>true</savePassword>
+  <serverAddress></serverAddress>
+</jdbcDataAdapter>

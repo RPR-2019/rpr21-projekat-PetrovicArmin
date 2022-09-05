@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 abstract public class Bug implements Serializable {
     private SimpleIntegerProperty id = new SimpleIntegerProperty();
@@ -20,6 +21,9 @@ abstract public class Bug implements Serializable {
     private SimpleStringProperty imageUrl = new SimpleStringProperty();
 
     public Bug() {}
+
+    abstract public User getUserWhoAsked();
+    abstract public LocalDate getDatePosted();
 
     public Bug(SimpleIntegerProperty id, SimpleStringProperty title, SimpleStringProperty description, SimpleObjectProperty<Language> language, SimpleObjectProperty<Urgency> urgency, SimpleStringProperty keywords, SimpleStringProperty code, SimpleStringProperty imageUrl) {
         this.id = id;

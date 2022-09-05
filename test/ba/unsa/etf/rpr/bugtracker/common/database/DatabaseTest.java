@@ -73,6 +73,6 @@ class DatabaseTest {
         User mockUser = new User(1, "a", "b", "c", "d", "e", Department.DATABASE);
         instance.storeUser(mockUser);
 
-        assertEquals(instance.getUserByUsername("a").toString(), mockUser.getLastname() + " " + mockUser.getFirstname() + " : " + mockUser.getUsername());
+        assertEquals(instance.getUserByUsername("a").toString(), mockUser.getUsername());
     }
 }
