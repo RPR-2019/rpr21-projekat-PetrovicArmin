@@ -23,3 +23,10 @@ i
 9src/ba/unsa/etf/rpr/bugtracker/common/enums/Language.java,3/a/3ab616d6afa6cf8f3c4bd33e9c3844dcf019752d
 g
 7src/ba/unsa/etf/rpr/bugtracker/controllers/Welcome.java,a/a/aa2bd116d712906b3d804ea8e503bbbae6378718
+9
+	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+_
+/src/ba/unsa/etf/rpr/bugtracker/common/Main.java,f/7/f7740c1526fbd9e098d47ae1c9ee9bf84cf87b9f

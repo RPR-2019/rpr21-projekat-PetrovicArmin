@@ -38,6 +38,7 @@ public class Details extends AbstractController implements Serializable, Showabl
     public HTMLEditor htmlArea;
     public TextField fldKeywords;
     public TextField choiceLanguage;
+    public Button btnApiExport;
     public Button btnExport;
     public Button btnViewSolution;
 
@@ -156,5 +157,9 @@ public class Details extends AbstractController implements Serializable, Showabl
     public void exitYourselfAndChild(Solve solve) {
         ((Stage)solve.btnCancel.getScene().getWindow()).close();
         ((Stage)btnExport.getScene().getWindow()).close();
+    }
+
+    public void onApi(ActionEvent actionEvent) {
+        System.out.println("Ovo je moja poruka!");
     }
 }

@@ -78,6 +78,7 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
+            <Button fx:id="btnApiExport" mnemonicParsing="false" onAction="#onApi" text="%app.create.apiexport" />
             <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#onCancel" text="%app.signup.cancel" />
         </buttons>
          <BorderPane.margin>

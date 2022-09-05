@@ -7,6 +7,7 @@ import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
 import ba.unsa.etf.rpr.bugtracker.models.ActiveBug;
 import ba.unsa.etf.rpr.bugtracker.models.Bug;
 import ba.unsa.etf.rpr.bugtracker.models.SolvedBug;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -60,24 +61,38 @@ public class Statistics extends AbstractController implements Initializable, Sho
                 FXCollections.observableArrayList(
                         new PieChart.Data("Solved", numberOfSolved),
                         new PieChart.Data("Active", numberOfActive));
-        pieStatusAll.setData(pieChartData);
+
         pieStatusAll.setTitle("Out of " + allBugs.size() + " bugs there are:");
+        pieChartData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " ", data.pieValueProperty()
+                        )
+                )
+        );
+        pieStatusAll.setData(pieChartData);
 
         int lowBugs = numberOfBugsByUrgency(allBugs, Urgency.LOW);
         int midBugs = numberOfBugsByUrgency(allBugs, Urgency.MEDIUM);
         int highBugs = numberOfBugsByUrgency(allBugs, Urgency.HIGH);
         int criticalBugs = numberOfBugsByUrgency(allBugs, Urgency.CRITICAL);
 
-        pieChartData =
+        var pieChartData1 =
                 FXCollections.observableArrayList(
                         new PieChart.Data("With low urgency", lowBugs),
                         new PieChart.Data("With mid urgency", midBugs),
                         new PieChart.Data("With high urgency", highBugs),
                         new PieChart.Data("With critical urgency", criticalBugs));
-        pieUrgencyAll.setData(pieChartData);
+
         pieUrgencyAll.setTitle("Out of " + allBugs.size() + " bugs there are:");
-
-
+        pieChartData1.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " ", data.pieValueProperty()
+                        )
+                )
+        );
+        pieUrgencyAll.setData(pieChartData1);
 
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();

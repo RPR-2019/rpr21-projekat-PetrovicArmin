@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/create.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <GridPane hgap="5.0" vgap="5.0" BorderPane.alignment="CENTER">
         <columnConstraints>

@@ -1,0 +1,45 @@
+
+n
+java:S1192"KDefine a constant instead of duplicating this literal "errorColor" 3 times.(Ÿ¶×¯ıÿÿÿÿ8ï„¢€°0
+d
+java:S1192•"FDefine a constant instead of duplicating this literal "error" 5 times.(µÅÊÔ8ï„¢€°0
+i
+java:S1192¬"FDefine a constant instead of duplicating this literal "clear" 4 times.(Î®Ïøÿÿÿÿ8ï„¢€°0
+k
+java:S1192"MDefine a constant instead of duplicating this literal "successColor" 3 times.(¦÷§£8ï„¢€°0
+f
+java:S1192™"HDefine a constant instead of duplicating this literal "success" 5 times.(ƒù›İ8ï„¢€°0
+n
+java:S1104"QMake btnOk a static final constant or non-public and provide accessors if needed.(‰õÀæ8ò„¢€°0
+r
+java:S1104 "UMake btnCancel a static final constant or non-public and provide accessors if needed.(ñÙ•Ó8ó„¢€°0
+z
+java:S1104!"XMake fldFirstname a static final constant or non-public and provide accessors if needed.(¼œµƒúÿÿÿÿ8ó„¢€°0
+t
+java:S1104""WMake fldLastname a static final constant or non-public and provide accessors if needed.(ŒÔÍ­8ó„¢€°0
+t
+java:S1104#"WMake fldUsername a static final constant or non-public and provide accessors if needed.(ïÀø°8ó„¢€°0
+s
+java:S1104$"WMake fldPassword a static final constant or non-public and provide accessors if needed.(¾¢È8ó„¢€°0
+q
+java:S1104%"TMake fldEmail a static final constant or non-public and provide accessors if needed.(ÙœÜ¤8ó„¢€°0
+~
+java:S1104&"\Make choiceDepartment a static final constant or non-public and provide accessors if needed.(ã¾¢ƒùÿÿÿÿ8ó„¢€°0
+w
+java:S1104'"UMake btnStatus a static final constant or non-public and provide accessors if needed.(‘¤Ôıÿÿÿÿ8ó„¢€°0
+e
+java:S2259]"HA "NullPointerException" could be thrown; "validation" is nullable here.(•äÚ8›…¢€°0
+`
+java:S2259^"CA "NullPointerException" could be thrown; "email" is nullable here.(Şİûˆ8›…¢€°0
+i
+java:S5998C"LRefactor this repetition that can lead to a stack overflow for large inputs.(´ÖÊ8¦…¢€°0
+^
+java:S1075f"ARefactor your code to get this URI from a customizable parameter.(Ëú ¢8ª…¢€°0
+c
+java:S1075j"ARefactor your code to get this URI from a customizable parameter.(ê´†ÿúÿÿÿÿ8«…¢€°0
+J
+java:S1602±",Remove useless curly braces around statement(¿Ø÷…8²…¢€°0
+P
+java:S1172Õ"2Remove this unused method parameter "actionEvent".(íãÄÆ8¶…¢€°0
+U
+java:S1172á"2Remove this unused method parameter "actionEvent".(°ˆÇ¤şÿÿÿÿ8¹…¢€°0
