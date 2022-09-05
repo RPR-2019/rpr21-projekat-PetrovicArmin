@@ -39,6 +39,7 @@ public class Solve extends AbstractController implements Initializable, Showable
     public Button btnImage;
     public Label lblImage;
     private File selectedFile;
+    public Label testLabel;
 
 
     public Solve(Details parent, User currentUser, Bug currentBug) {
@@ -60,6 +61,10 @@ public class Solve extends AbstractController implements Initializable, Showable
             else
                 changeBackgroundColor(areaDescription, "success");
         });
+
+        testLabel.setText("Hello, " + currentUser.getUsername() + " !");
+        testLabel.setVisible(true);
+        testLabel.setDisable(false);
     }
 
     private static <T extends TextInputControl> void changeBackgroundColor(T field, String status) {

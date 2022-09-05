@@ -50,9 +50,9 @@
       </MenuBar>
    </top>
    <bottom>
-      <Label fx:id="testLabel" text="Label" underline="true" visible="false" BorderPane.alignment="CENTER">
+      <Label fx:id="testLabel" underline="true" BorderPane.alignment="CENTER">
          <font>
-            <Font size="14.0" />
+            <Font size="15.0" />
          </font>
       </Label>
    </bottom>

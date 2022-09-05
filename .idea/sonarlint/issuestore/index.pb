@@ -9,8 +9,6 @@ e
 5src/ba/unsa/etf/rpr/bugtracker/controllers/About.java,e/6/e686b51e7cb0b7296704ac62c95e7b61fc75cc05
 q
 Atest/ba/unsa/etf/rpr/bugtracker/common/database/DatabaseTest.java,6/f/6fc9d9414f5d5897fabc7503d85595235e2ad9bd
-_
-/src/ba/unsa/etf/rpr/bugtracker/models/User.java,2/4/24d7a4b062a383d2545f01b4766b6f89aa4afe6f
 l
 <test/ba/unsa/etf/rpr/bugtracker/controllers/WelcomeTest.java,f/4/f49f7ffcebefbe1d3207b519b45fe1b7456e35e2
 f
