@@ -41,5 +41,7 @@
     <orderEntry type="library" name="javafx" level="project" />
     <orderEntry type="library" name="net.sf.jasperreports" level="project" />
     <orderEntry type="library" name="json" level="project" />
+    <orderEntry type="library" name="sun.mail.javax" level="project" />
+    <orderEntry type="library" name="javafx" level="project" />
   </component>
 </module>
