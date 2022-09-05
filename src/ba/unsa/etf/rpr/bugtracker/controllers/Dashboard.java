@@ -301,4 +301,15 @@ public class Dashboard extends AbstractController implements Showable, Initializ
             showFilteredBugs(database.getAllBugs());
         }
     }
+
+    public void onStatistics() {
+        Stage stage = new Stage();
+        Statistics statistics = new Statistics();
+        showStage(stage, "/views/statistics.fxml", "app.stat.title", 800, 600, statistics);
+    }
+
+    public void onPrint() {
+        System.out.println("Printam svoj dokument!");
+
+    }
 }

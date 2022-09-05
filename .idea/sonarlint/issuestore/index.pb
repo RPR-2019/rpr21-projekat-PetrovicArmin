@@ -19,8 +19,6 @@ e
 5src/ba/unsa/etf/rpr/bugtracker/controllers/Login.java,6/0/60be85dad474dba0ca235bb40513735647ba5876
 k
 ;test/ba/unsa/etf/rpr/bugtracker/controllers/SignupTest.java,a/9/a9de960f21944617b8e1ee3794b67450c5469347
-k
-;src/ba/unsa/etf/rpr/bugtracker/common/enums/Department.java,8/8/88264407ebb39e8b40549cdb00df46ef6761718e
 i
 9src/ba/unsa/etf/rpr/bugtracker/common/enums/Language.java,3/a/3ab616d6afa6cf8f3c4bd33e9c3844dcf019752d
 g

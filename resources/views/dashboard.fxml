@@ -33,9 +33,10 @@
                   <MenuItem fx:id="btnImport" mnemonicParsing="false" onAction="#onImport" styleClass="menuItem" text="%app.dashboard.import" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" styleClass="menu" text="Edit">
+          <Menu mnemonicParsing="false" styleClass="menu" text="%app.dashboard.data">
             <items>
-              <MenuItem mnemonicParsing="false" styleClass="menuItem" text="Delete" />
+              <MenuItem mnemonicParsing="false" onAction="#onStatistics" styleClass="menuItem" text="%app.dashboard.statistics" />
+                  <MenuItem mnemonicParsing="false" onAction="#onPrint" text="%app.dashboard.print" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" styleClass="menu" text="%app.dashboard.account">
