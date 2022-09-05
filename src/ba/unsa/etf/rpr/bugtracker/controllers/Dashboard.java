@@ -5,6 +5,7 @@ import ba.unsa.etf.rpr.bugtracker.common.enums.Department;
 import ba.unsa.etf.rpr.bugtracker.common.enums.Language;
 import ba.unsa.etf.rpr.bugtracker.common.enums.Urgency;
 import ba.unsa.etf.rpr.bugtracker.common.exceptions.InvalidIndexException;
+import ba.unsa.etf.rpr.bugtracker.common.other.PrintReport;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
 import ba.unsa.etf.rpr.bugtracker.models.ActiveBug;
 import ba.unsa.etf.rpr.bugtracker.models.Bug;
@@ -22,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,6 +55,7 @@ public class Dashboard extends AbstractController implements Showable, Initializ
     public TextField fldBugTitle;
     public TextField fldKeywords;
     public MenuItem btnImport;
+    public MenuItem btnJsonImport;
 
 
     public Dashboard(User currentUser) {
@@ -300,5 +303,26 @@ public class Dashboard extends AbstractController implements Showable, Initializ
 
             showFilteredBugs(database.getAllBugs());
         }
+    }
+
+    public void onStatistics() {
+        Stage stage = new Stage();
+        Statistics statistics = new Statistics();
+        showStage(stage, "/views/statistics.fxml", "app.stat.title", 800, 600, statistics);
+    }
+
+    public void onPrint() {
+        System.out.println("Printam svoj dokument!");
+        try {
+            new PrintReport().showReport(database.getConn(), currentUser.getUsername());
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onJSONImport(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        JsonImport controller = new JsonImport(this, currentUser);
+        showStage(stage, "/views/jsonImport.fxml", "app.json.title", 300, 300, controller);
     }
 }

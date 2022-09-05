@@ -1,8 +1,8 @@
 package ba.unsa.etf.rpr.bugtracker.controllers;
 
 import ba.unsa.etf.rpr.bugtracker.common.database.Database;
+import ba.unsa.etf.rpr.bugtracker.common.other.EmailSender;
 import ba.unsa.etf.rpr.bugtracker.common.other.Showable;
-import ba.unsa.etf.rpr.bugtracker.models.ActiveBug;
 import ba.unsa.etf.rpr.bugtracker.models.Bug;
 import ba.unsa.etf.rpr.bugtracker.models.Solution;
 import ba.unsa.etf.rpr.bugtracker.models.User;
@@ -39,6 +39,7 @@ public class Solve extends AbstractController implements Initializable, Showable
     public Button btnImage;
     public Label lblImage;
     private File selectedFile;
+    public Label testLabel;
 
 
     public Solve(Details parent, User currentUser, Bug currentBug) {
@@ -60,6 +61,10 @@ public class Solve extends AbstractController implements Initializable, Showable
             else
                 changeBackgroundColor(areaDescription, "success");
         });
+
+        testLabel.setText("Hello, " + currentUser.getUsername() + " !");
+        testLabel.setVisible(true);
+        testLabel.setDisable(false);
     }
 
     private static <T extends TextInputControl> void changeBackgroundColor(T field, String status) {
@@ -123,6 +128,7 @@ public class Solve extends AbstractController implements Initializable, Showable
         }
 
         database.storeSolution(solution);
+        EmailSender.sendEmail(currentBug.getUserWhoAsked().getEmail(), currentBug.getTitle(), currentUser.getUsername());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(resourceBundle.getString("app.solve.infoTitle"));
